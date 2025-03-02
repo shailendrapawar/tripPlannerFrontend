@@ -10,15 +10,21 @@ import Home from './pages/Home.jsx'
 
 import { Provider } from "react-redux"
 import { store } from './store/store.js'
+import PageLayout from './pages/PageLayout.jsx'
 
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 
+{/* ==============auth routes============================ */}
     <Route path='' element={<Login />}></Route>
-    <Route path='/register' element={<Register />}></Route>
+    <Route path='register' element={<Register />}></Route>
 
 
-    <Route path='/user/home' element={<Home />}></Route>
+{/* ===========user routes========================= */}
+    <Route path='/user' element={<PageLayout/>}>
+    <Route path='/user/home' element={<Home/>}></Route>
+    </Route>
+
   </Route>
 
 ))
