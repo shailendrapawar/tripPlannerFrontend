@@ -22,7 +22,7 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
 
 {/* ===========user routes========================= */}
     <Route path='/user' element={<PageLayout/>}>
-    <Route path='/user/home' element={<Home/>}></Route>
+    <Route path='/user/' element={<Home/>}></Route>
     </Route>
 
   </Route>

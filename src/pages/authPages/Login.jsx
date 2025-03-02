@@ -10,7 +10,7 @@ const Login = () => {
   const { theme } = useSelector(state => state.theme)
 
   const [loading, setLoading] = useState(false)
-  const naviagte=useNavigate()
+  const navigate=useNavigate()
   const dispatch=useDispatch()
 
   // ==========form state for login=================
@@ -45,9 +45,12 @@ const Login = () => {
       })
 
       if (isLoggedIn) {
-        console.log(isLoggedIn)
+        // console.log(isLoggedIn)
         dispatch(setAuthUser(isLoggedIn.data.user))
         toast.success(isLoggedIn.data.msg)
+        setTimeout(() => {
+          navigate("/user/")
+        }, 1000);
       }
 
     } catch (err) {
