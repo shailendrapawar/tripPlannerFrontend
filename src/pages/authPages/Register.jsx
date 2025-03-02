@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import logoImg from "../../assets/images/packPals-icon.jpg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import toast from "react-hot-toast"
 import axios from "axios"
@@ -10,6 +10,7 @@ const Register = () => {
   const{theme}=useSelector(state=>state.theme)
 
   const[loading,setLoading]=useState(false)
+  const navigate=useNavigate()
   //=======handling form data==================
   const [formData,setFormdata]=useState({
     name:"",
@@ -49,8 +50,11 @@ const Register = () => {
       
       if(isRegister){
         toast.success(isRegister.data.msg)
-        // console.log(isRegister)
+        setTimeout(() => {
+          navigate("/")
+        }, 1000);
       }
+      
     }catch(err){
       console.log(err)
       toast.error(err.response.data.msg)
