@@ -3,10 +3,13 @@ import logoImg from "../../assets/images/packPals-icon.jpg"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import axios from "axios"
+
 
 const Register = () => {
   const{theme}=useSelector(state=>state.theme)
 
+  const[loading,setLoading]=useState(false)
   //=======handling form data==================
   const [formData,setFormdata]=useState({
     name:"",
@@ -34,9 +37,26 @@ const Register = () => {
       toast.error("Enter all fields")
       return 
     }
+    if(loading===true){
+      return
+    }
+    setLoading(true)
 
-    toast.success("Register success")
-    console.log(formData)
+    try{
+      const isRegister=await axios.post(import.meta.env.VITE_API_URL+"/auth/register",formData,{
+        withCredentials:true
+      })
+      
+      if(isRegister){
+        toast.success(isRegister.data.msg)
+        // console.log(isRegister)
+      }
+    }catch(err){
+      console.log(err)
+      toast.error(err.response.data.msg)
+    }finally{
+      setLoading(false)
+    }
   }
 
   return (
@@ -61,7 +81,7 @@ const Register = () => {
             <input type="date" value={formData.dob} onChange={(e)=>handleChange(e)} name="dob" className="text-xs w-30 pl-2 pr-2 rounded-xl text-sm outline-none cursor-pointer " style={{backgroundColor:theme.primary,color:theme.pastel}}></input>
           </section>
 
-          <button onClick={()=>handleRegister()} className=" w-25 h-8 rounded-md self-end absolute bottom-0" style={{backgroundColor:theme.primary,color:theme.pastel}}>Register</button>
+          <button onClick={()=>handleRegister()} className=" w-25 h-8 rounded-md self-end absolute bottom-0" style={loading?{backgroundColor:theme.light,cursor:"not-allowed"}:{backgroundColor:theme.primary,color:theme.pastel}}>{loading?"Loading...":"Register"}</button>
         </div>
         <Link to={"/"} className="text-blue-500 underline text-sm">already a user? Login here</Link>
       </section>
