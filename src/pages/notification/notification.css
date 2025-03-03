@@ -1,0 +1,21 @@
+.notification-body{
+overflow-y:scroll;
+}
+
+.notification-body::-webkit-scrollbar {
+    width: 3px; /* Width of the scrollbar */
+  }
+  
+  .notification-body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+    border-radius: 10px;
+  }
+  
+  .notification-body::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar handle */
+    border-radius: 10px;
+  }
+  
+  .notification-body::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker handle on hover */
+  }

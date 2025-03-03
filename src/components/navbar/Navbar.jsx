@@ -24,7 +24,7 @@ const Navbar = () => {
 
     
 {/* ================mobile navigation=========================== */}
-            <nav className=" mobile-nav">
+            <nav className=" mobile-nav z-10">
                 {visible ? <RiMenuFoldFill onClick={() => setVisible(!visible)} className=" h-8 w-8" style={{ color: theme.pastel }} /> : <RiMenuFold2Fill onClick={() => setVisible(!visible)} className=" h-8 w-8" style={{ color: theme.pastel }} />}
                 <section onClick={() => setVisible(false)} className="absolute top-18 right-0 w-50 h-50 flex-col justify-center items-center gap-5" style={visible ? { backgroundColor: theme.dark, display: "flex", color: theme.pastel } : { display: "none" }}>
                     <NavLink to={"/user/explore"} className={`w-[70%] text-center`}>EXPLORE</NavLink>

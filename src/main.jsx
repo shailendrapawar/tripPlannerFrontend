@@ -6,15 +6,15 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Layout from './Layout.jsx'
 import Login from './pages/authPages/Login.jsx'
 import Register from './pages/authPages/Register.jsx'
-import Home from './pages/Home.jsx'
+import Home from './pages/home/Home.jsx'
 
 import { Provider } from "react-redux"
 import { store } from './store/store.js'
 import PageLayout from './pages/PageLayout.jsx'
-import PlanTrip from './pages/PlanTrip.jsx'
+import PlanTrip from './pages/planTrip/PlanTrip.jsx'
 import UserProfile from './pages/userProfile/UserProfile.jsx'
-import Explore from './pages/Explore.jsx'
-import Notification from './pages/Notification.jsx'
+import Explore from './pages/explore/Explore.jsx'
+import Notification from './pages/notification/Notification.jsx'
 import UserTrips from "./pages/userTrips/UserTrips.jsx"
 import UserPosts from "./pages/userPosts/UserPosts.jsx"
 import UserProfileLayout from './pages/userProfile/UserProfileLayout.jsx'
