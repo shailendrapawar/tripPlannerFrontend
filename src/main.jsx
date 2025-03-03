@@ -18,6 +18,7 @@ import Notification from './pages/Notification.jsx'
 import UserTrips from "./pages/userTrips/UserTrips.jsx"
 import UserPosts from "./pages/userPosts/UserPosts.jsx"
 import UserProfileLayout from './pages/userProfile/UserProfileLayout.jsx'
+import EditProfile from './pages/editProfile/EditProfile.jsx'
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 
@@ -37,11 +38,14 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
         <Route path='/user/userProfile/userTrips' element={<UserTrips/>}></Route>
         <Route path='/user/userProfile/userPosts' element={<UserPosts/>}></Route>
       </Route>
+
+      <Route path='/user/editProfile' element={<EditProfile/>}></Route>
     </Route>
 
   </Route>
-
 ))
+
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
