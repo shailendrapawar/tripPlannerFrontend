@@ -12,10 +12,12 @@ import { Provider } from "react-redux"
 import { store } from './store/store.js'
 import PageLayout from './pages/PageLayout.jsx'
 import PlanTrip from './pages/PlanTrip.jsx'
-import UserProfile from './pages/UserProfile.jsx'
+import UserProfile from './pages/userProfile/UserProfile.jsx'
 import Explore from './pages/Explore.jsx'
 import Notification from './pages/Notification.jsx'
-
+import UserTrips from "./pages/userTrips/UserTrips.jsx"
+import UserPosts from "./pages/userPosts/UserPosts.jsx"
+import UserProfileLayout from './pages/userProfile/UserProfileLayout.jsx'
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 
@@ -26,11 +28,15 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
 
     {/* ===========user routes========================= */}
     <Route path='/user' element={<PageLayout />}>
-      <Route path='/user/' element={<Home/>}></Route>
-      <Route path='/user/explore' element={<Explore/>}></Route>
-      <Route path='/user/planTrip' element={<PlanTrip/>}></Route>
-      <Route path='/user/notification' element={<Notification/>}></Route>
-      <Route path='/user/userProfile' element={<UserProfile/>}></Route>
+      <Route path='/user/' element={<Home />}></Route>
+      <Route path='/user/explore' element={<Explore />}></Route>
+      <Route path='/user/planTrip' element={<PlanTrip />}></Route>
+      <Route path='/user/notification' element={<Notification />}></Route>
+      <Route path='/user/userProfile' element={<UserProfile />}>
+        <Route path='/user/userProfile' element={<UserProfileLayout/>}></Route>
+        <Route path='/user/userProfile/userTrips' element={<UserTrips/>}></Route>
+        <Route path='/user/userProfile/userPosts' element={<UserPosts/>}></Route>
+      </Route>
     </Route>
 
   </Route>

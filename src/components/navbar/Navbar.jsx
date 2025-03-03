@@ -16,12 +16,14 @@ const Navbar = () => {
 
     return (
         <nav className=" h-18 flex justify-between items-center pl-5 pr-5 relative cursor-pointer" style={{ backgroundColor: theme.dark }}>
-
+            
             <h1 onClick={() => {
                 setVisible(false)
                 navigate("/user/")
             }}>PackPals</h1>
 
+    
+{/* ================mobile navigation=========================== */}
             <nav className=" mobile-nav">
                 {visible ? <RiMenuFoldFill onClick={() => setVisible(!visible)} className=" h-8 w-8" style={{ color: theme.pastel }} /> : <RiMenuFold2Fill onClick={() => setVisible(!visible)} className=" h-8 w-8" style={{ color: theme.pastel }} />}
                 <section onClick={() => setVisible(false)} className="absolute top-18 right-0 w-50 h-50 flex-col justify-center items-center gap-5" style={visible ? { backgroundColor: theme.dark, display: "flex", color: theme.pastel } : { display: "none" }}>
@@ -32,8 +34,9 @@ const Navbar = () => {
                 </section>
             </nav>
 
-            <nav className=" web-nav w-[80%] h-6 flex justify-between" style={{color:theme.pastel}}>
 
+{/* ================web naviagteion========================= */}
+            <nav className=" web-nav w-[80%] h-6 flex justify-between" style={{color:theme.pastel}}>
                 <section className="w-[80%] flex  justify-evenly" >
                     <NavLink to={"/user/explore"} className={`w-[25%] text-center text-sm`}>EXPLORE</NavLink>
                     <NavLink to={"/user/planTrip"} className={`w-[25%] text-center text-sm`}>PLAN TRIP</NavLink>
@@ -44,11 +47,7 @@ const Navbar = () => {
                     setVisible(false)
                     navigate("/user/userProfile")
                 }} className="h-6 w-6" />
-
             </nav>
-
-
-
 
         </nav>
     )
