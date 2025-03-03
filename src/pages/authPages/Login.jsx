@@ -19,7 +19,7 @@ const Login = () => {
     password: ""
   })
   const handleChange = (e) => {
-    console.log(e.target.name)
+    // console.log(e.target.name)
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -55,7 +55,7 @@ const Login = () => {
 
     } catch (err) {
       console.log(err)
-      toast.error(err.response.data.msg)
+      toast.error(err?.response?.data?.msg||"something went wrong")
     }finally{
       setLoading(false)
     }

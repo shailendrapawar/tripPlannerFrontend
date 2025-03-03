@@ -21,7 +21,7 @@ const Register = () => {
   })
   const handleChange=(e)=>{
     const{name,value}=e.target
-    console.log(name)
+    // console.log(name)
     setFormdata((prev)=>(
       {
         ...prev,
@@ -57,7 +57,7 @@ const Register = () => {
       
     }catch(err){
       console.log(err)
-      toast.error(err.response.data.msg)
+      toast.error(err?.response?.data?.msg||"something went wrong")
     }finally{
       setLoading(false)
     }
