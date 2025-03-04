@@ -8,7 +8,7 @@ const PlanTrip = () => {
   const [tripForm,setTripForm]=useState({
     title:"",
     category:"",
-    startData:"",
+    startDate:"",
     endDate:"",
     description:"",
     budget:""
@@ -27,6 +27,23 @@ const PlanTrip = () => {
     console.log(location)
   },[location])
 
+  
+  const handleChange=(e)=>{
+    const{name,value}=e.target
+
+    setTripForm((prev)=>({
+      ...prev,
+      [name]:value
+    }))
+  }
+
+  const handleCreateTrip=async()=>{
+    console.log(tripForm)
+    console.log(location)
+    console.log(activities)
+  }
+
+
   return (
     <div className="h-[90%] flex justify-center items-center" style={{backgroundColor:theme.pastel}}>
 
@@ -35,33 +52,34 @@ const PlanTrip = () => {
         <SearchBar location={location} setLocation={setLocation}/>
 
         <div className="h-auto flex flex-col justify-center items-center gap-2">
-          <input placeholder="enter trip title" className="w-[320px] h-10 text-center bg-white outline-none"></input>
+          <input value={tripForm.title} onChange={(e)=>handleChange(e)} name="title"  placeholder="enter trip title" className="w-[320px] h-10 text-center bg-white outline-none"></input>
 
           <div className="w-[320px] flex gap-1 h-6">
-            <select className="w-[50%] bg-white outline-none text-xs">
-              <option>Adventure</option>
-              <option>Heritage</option>
-              <option>Relaxation</option>
-              <option>Nature</option>
-              <option>Adventure</option>
-              <option>Family</option>
+            <select value={tripForm.category} onChange={(e)=>handleChange(e)} name="category" className="w-[50%] bg-white outline-none text-xs">
+              <option value={"adventure"}>Adventure</option>
+              <option value={"heritage"}>Heritage</option>
+              <option value={"relaxation"}>Relaxation</option>
+              <option value={"nature"}>Nature</option>
+              <option value={"backpack"}>Backpack</option>
+              <option value={"family"}>Family</option>
             </select>
 
-            <input type="number" placeholder="enter budget" className="w-[50%] bg-white text-xs text-center outline-none" ></input>
+            <input value={tripForm.budget} onChange={(e)=>handleChange(e)} name="budget"  type="number" placeholder="enter budget" className="w-[50%] bg-white text-xs text-center outline-none" ></input>
           </div>
 
           <div className="w-[320px] flex gap-1 h-8 relative">
             <i className=" absolute text-[8px] top-1 left-1">Start date</i>
-            <input type="date" placeholder="enter start date" className="w-[50%] bg-white outline-none text-xs pl-15  select-none cursor-pointer"></input>
-            <input type="date" placeholder="enter start date" className="w-[50%] bg-white outline-none text-xs pl-15 "></input>
+            <input value={tripForm.startDate} onChange={(e)=>handleChange(e)} name="startDate" type="date" placeholder="enter start date" className="w-[50%] bg-white outline-none text-xs pl-15  select-none cursor-pointer"></input>
+            <input value={tripForm.endDate} onChange={(e)=>handleChange(e)} name="endDate" type="date" placeholder="enter start date" className="w-[50%] bg-white outline-none text-xs pl-15 "></input>
             <i className=" absolute text-[8px] top-1 right-30">End date</i>
           </div>
-          <textarea className="w-[320px] h-20 resize-none text-xs p-1 outline-none bg-white" placeholder="enter little description of trip"></textarea>
+          <textarea value={tripForm.description} onChange={(e)=>handleChange(e)} name="description" className="w-[320px] h-20 resize-none text-xs p-1 outline-none bg-white" placeholder="enter little description of trip"></textarea>
 
 
           <Todos activities={activities} setActivities={setActivities}  />
 
 
+          <button onClick={()=>handleCreateTrip()}>create</button>
 
         </div>
 
