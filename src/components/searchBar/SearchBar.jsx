@@ -3,7 +3,7 @@ import axios from "axios"
 import SearchList from "./SearchList"
 import { MdClear } from "react-icons/md";
 
-const SearchBar = () => {
+const SearchBar = ({location,setLocation}) => {
 
     const [query, setQuery] = useState("")
     const [suggestion, setSuggestion] = useState([])
@@ -35,9 +35,14 @@ const SearchBar = () => {
     }
 
     const handleSelect = (data) => {
-        console.log(data)
+        // console.log(data)
         setQuery(data.formatted)
         setSuggestion([])
+        setLocation({
+            location:data.formatted,
+            longitude:data.lon,
+            latitude:data.lat
+        })
     }
 
 
@@ -46,7 +51,15 @@ const SearchBar = () => {
             <div className="relative flex">
                 <input type="text" placeholder="search for place" value={query} onChange={(e) => handleChange(e)} className="h-10 w-70 bg-white pl-2 rounded-md outline-none"></input>
                 
-                <MdClear onClick={()=>{setQuery("");setSuggestion([])}} className="absolute right-1 top-3"/>
+                <MdClear onClick={()=>{
+                    setQuery("");
+                    setSuggestion([]);
+                    setLocation({
+                        location:"",
+                        latitude:"",
+                        longitude:""
+                    })
+                }} className="absolute right-1 top-3"/>
             </div>
             {
                 suggestion.length > 0 ? (<ul className="h-auto max-h-30 w-70 overflow-y-scroll ">
