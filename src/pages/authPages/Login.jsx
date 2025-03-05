@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import {setAuthUser} from "../../store/slice/userSlice" 
+import { setAuthUser } from "../../store/slice/userSlice"
 import logoImg from "../../assets/images/packPals-icon.jpg"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -10,8 +10,8 @@ const Login = () => {
   const { theme } = useSelector(state => state.theme)
 
   const [loading, setLoading] = useState(false)
-  const navigate=useNavigate()
-  const dispatch=useDispatch()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   // ==========form state for login=================
   const [formData, setFormData] = useState({
@@ -40,12 +40,15 @@ const Login = () => {
     setLoading(true)
 
     try {
+
+      axios.defaults.withCredentials = true;
       const isLoggedIn = await axios.post(import.meta.env.VITE_API_URL + "/auth/login", formData, {
         withCredentials: true
       })
+      
 
       if (isLoggedIn) {
-        // console.log(isLoggedIn)
+        console.log(isLoggedIn)
         dispatch(setAuthUser(isLoggedIn.data.user))
         toast.success(isLoggedIn.data.msg)
         setTimeout(() => {
@@ -55,8 +58,8 @@ const Login = () => {
 
     } catch (err) {
       console.log(err)
-      toast.error(err?.response?.data?.msg||"something went wrong")
-    }finally{
+      toast.error(err?.response?.data?.msg || "something went wrong")
+    } finally {
       setLoading(false)
     }
   }
@@ -71,7 +74,7 @@ const Login = () => {
           <input type="email" required value={formData.email} onChange={(e) => handleChange(e)} name="email" placeholder="enter email" className="h-10 bg-white pl-1 pr-1 text-sm outline-none"></input>
           <input type="password" required value={formData.password} onChange={(e) => handleChange(e)} name="password" placeholder="enter password" className="h-10 bg-white pl-1 pr-1 text-sm outline-none"></input>
 
-          <button onClick={handleLogin} className=" w-25 h-8 rounded-md self-end absolute bottom-0 cursor-pointer" style={loading?{backgroundColor:theme.light,cursor:"not-allowed"}:{backgroundColor:theme.primary,color:theme.pastel}}>{loading?"Loading...":"Log in"}</button>
+          <button onClick={handleLogin} className=" w-25 h-8 rounded-md self-end absolute bottom-0 cursor-pointer" style={loading ? { backgroundColor: theme.light, cursor: "not-allowed" } : { backgroundColor: theme.primary, color: theme.pastel }}>{loading ? "Loading..." : "Log in"}</button>
         </div>
 
         <Link to={"/register"} className="text-blue-500 underline text-sm">new user? Register here</Link>

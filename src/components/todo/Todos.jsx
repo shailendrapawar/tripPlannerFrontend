@@ -60,10 +60,10 @@ const Todos = ({activities,setActivities}) => {
             <ul className=" todo-list max-h-60 h-auto flex flex-col gap-1 p-2 overflow-y-scroll">
                 {
                     todo?.length>0?(todo.map((item,i)=>{
-                        return <div className="flex justify-start items-center min-h-10 pl-2 pr-2 bg-white relative gap-2 rounded-md" key={i}>
-                            <b className="text-xs">Day {item.day} :</b><span className="text-xs">{item.activity}</span><RiDeleteBackFill onClick={()=>removeTodo(item)} className=" absolute right-2"/>
+                        return <div className="flex justify-start items-center min-h-10 h-auto pl-2 pr-2 pt-1 pb-1 bg-white relative gap-2 rounded-md" key={i}>
+                            <b className="text-xs w-[15%]" style={{color:theme.dark}}>Day {item.day} :</b><span className="text-xs w-[75%]">{item.activity}</span><RiDeleteBackFill onClick={()=>removeTodo(item)} className=" absolute right-2"/>
                         </div>
-                    })):(<span className="text-center text-md">enter some todos for trip</span>)
+                    })):(<span className="text-center text-md" style={{color:theme.dark}}>Enter some activites for trip</span>)
                 }
             </ul>
 

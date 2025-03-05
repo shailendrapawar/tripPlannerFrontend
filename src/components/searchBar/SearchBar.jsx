@@ -2,8 +2,9 @@ import { useState } from "react"
 import axios from "axios"
 import SearchList from "./SearchList"
 import { MdClear } from "react-icons/md";
+import toast from "react-hot-toast"
 
-const SearchBar = ({location,setLocation}) => {
+const SearchBar = ({destination,setDestination}) => {
 
     const [query, setQuery] = useState("")
     const [suggestion, setSuggestion] = useState([])
@@ -15,7 +16,8 @@ const SearchBar = ({location,setLocation}) => {
             setSuggestion([])
             return
         }
-        // console.log(query)
+        
+
         const API_KEY = "bb727deab6e7474ba1acab98c798ddf4"
         
             var requestOptions = {
@@ -28,34 +30,35 @@ const SearchBar = ({location,setLocation}) => {
                     setSuggestion(result.features || [])
                 })
                 .catch(error => {
-                    // setSuggestion([])
                     console.log('error', error)
                 });
        
     }
 
     const handleSelect = (data) => {
-        // console.log(data)
+   
         setQuery(data.formatted)
         setSuggestion([])
-        setLocation({
-            location:data.formatted,
+        setDestination({
+            destination:data.formatted,
             longitude:data.lon,
             latitude:data.lat
         })
+
+        toast.success(`destination selected:- ${data.formatted}`)
     }
 
 
     return (
         <div className="  flex flex-col justify-center items-center">
             <div className="relative flex">
-                <input type="text" placeholder="search for place" value={query} onChange={(e) => handleChange(e)} className="h-10 w-70 bg-white pl-2 rounded-md outline-none"></input>
+                <input type="text" placeholder="search for place" value={query} onChange={(e) => handleChange(e)} className="h-10 w-70 bg-white pl-2 pr-2 rounded-md outline-none text-sm"></input>
                 
                 <MdClear onClick={()=>{
                     setQuery("");
                     setSuggestion([]);
-                    setLocation({
-                        location:"",
+                    setDestination({
+                        destination:"",
                         latitude:"",
                         longitude:""
                     })

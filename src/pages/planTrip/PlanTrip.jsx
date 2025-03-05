@@ -2,6 +2,8 @@ import { useSelector } from "react-redux"
 import SearchBar from "../../components/searchBar/SearchBar"
 import Todos from "../../components/todo/Todos"
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
+import axios from "axios"
 const PlanTrip = () => {
   const {theme}=useSelector(state=>state.theme)
 
@@ -15,19 +17,15 @@ const PlanTrip = () => {
 
   })
 
-  const[location,setLocation]=useState({
-    location:"",
+  const[destination,setDestination]=useState({
+    destination:"",
     latitude:"",
     longitutde:""
   })
 
   const [activities,setActivities]=useState([]);
 
-  useEffect(()=>{
-    console.log(location)
-  },[location])
 
-  
   const handleChange=(e)=>{
     const{name,value}=e.target
 
@@ -38,18 +36,53 @@ const PlanTrip = () => {
   }
 
   const handleCreateTrip=async()=>{
-    console.log(tripForm)
-    console.log(location)
-    console.log(activities)
+    if(tripForm.title===""||tripForm.budget===""||tripForm.category===""||tripForm.description===""||tripForm.endDate===""||tripForm.startDate===""){
+      toast.error("enter all field in mid-form");
+      return
+    }
+    if(destination.destination===""){
+      toast.error("select destination");
+    }
+
+    // console.log(tripForm)
+    // console.log(destination)
+    // console.log(activities)
+
+    const reqData={
+      title:tripForm.title,
+      description:tripForm.description,
+
+      startDate:tripForm.startDate,
+      endDate:tripForm.endDate,
+
+      destination:destination,
+      budget:tripForm.budget,
+      activities:activities,
+      category:tripForm.category
+    }
+
+    try{
+      axios.defaults.withCredentials= true
+    const isCreated=await axios.post(import.meta.env.VITE_API_URL+"/trip/createTrip",reqData,{
+      headers:{
+        "Content-Type":"application/json",
+      
+      },withCredentials:true
+    })
+    console.log(isCreated)
+
+    }catch(err){
+      console.log(err)
+    }
   }
 
 
   return (
-    <div className="h-[90%] flex justify-center items-center" style={{backgroundColor:theme.pastel}}>
+    <div className=" min-h-[90%] h-auto pb-5 pt-5 flex justify-center items-center" style={{backgroundColor:theme.pastel}}>
 
       <section className="w-[90%] h-[90%] flex-col flex gap-2">
 
-        <SearchBar location={location} setLocation={setLocation}/>
+        <SearchBar destination={destination} setDestination={setDestination}/>
 
         <div className="h-auto flex flex-col justify-center items-center gap-2">
           <input value={tripForm.title} onChange={(e)=>handleChange(e)} name="title"  placeholder="enter trip title" className="w-[320px] h-10 text-center bg-white outline-none"></input>
@@ -67,24 +100,21 @@ const PlanTrip = () => {
             <input value={tripForm.budget} onChange={(e)=>handleChange(e)} name="budget"  type="number" placeholder="enter budget" className="w-[50%] bg-white text-xs text-center outline-none" ></input>
           </div>
 
-          <div className="w-[320px] flex gap-1 h-8 relative">
+          <div className="w-[320px] flex justify-between h-8 relative">
             <i className=" absolute text-[8px] top-1 left-1">Start date</i>
-            <input value={tripForm.startDate} onChange={(e)=>handleChange(e)} name="startDate" type="date" placeholder="enter start date" className="w-[50%] bg-white outline-none text-xs pl-15  select-none cursor-pointer"></input>
-            <input value={tripForm.endDate} onChange={(e)=>handleChange(e)} name="endDate" type="date" placeholder="enter start date" className="w-[50%] bg-white outline-none text-xs pl-15 "></input>
-            <i className=" absolute text-[8px] top-1 right-30">End date</i>
+            <input value={tripForm.startDate} onChange={(e)=>handleChange(e)} name="startDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14  select-none cursor-pointer"></input>
+            <input value={tripForm.endDate} onChange={(e)=>handleChange(e)} name="endDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14 select-none cursor-pointer"></input>
+            <i className=" absolute text-[8px] top-1 right-29">End date</i>
           </div>
+          
           <textarea value={tripForm.description} onChange={(e)=>handleChange(e)} name="description" className="w-[320px] h-20 resize-none text-xs p-1 outline-none bg-white" placeholder="enter little description of trip"></textarea>
 
 
           <Todos activities={activities} setActivities={setActivities}  />
 
-
-          <button onClick={()=>handleCreateTrip()}>create</button>
+          <button onClick={()=>handleCreateTrip()} className="w-30 rounded-md h-10" style={{backgroundColor:theme.primary,color:theme.pastel}}>create</button>
 
         </div>
-
-
-
         
       </section>
 
