@@ -26,9 +26,10 @@ const Navbar = () => {
 {/* ================mobile navigation=========================== */}
             <nav className=" mobile-nav z-10">
                 {visible ? <RiMenuFoldFill onClick={() => setVisible(!visible)} className=" h-8 w-8" style={{ color: theme.pastel }} /> : <RiMenuFold2Fill onClick={() => setVisible(!visible)} className=" h-8 w-8" style={{ color: theme.pastel }} />}
-                <section onClick={() => setVisible(false)} className="absolute top-18 right-0 w-50 h-50 flex-col justify-center items-center gap-5" style={visible ? { backgroundColor: theme.dark, display: "flex", color: theme.pastel } : { display: "none" }}>
+                <section onClick={() => setVisible(false)} className="absolute top-18 right-0 w-50 h-auto p-2 flex-col justify-center items-center gap-5" style={visible ? { backgroundColor: theme.dark, display: "flex", color: theme.pastel } : { display: "none" }}>
                     <NavLink to={"/user/explore"} className={`w-[70%] text-center`}>EXPLORE</NavLink>
                     <NavLink to={"/user/planTrip"} className={"w-[70%] text-center"}>PLAN TRIP</NavLink>
+                    <NavLink to={"/user/myTrips"} className={"w-[70%] text-center"}>My Trips</NavLink>
                     <NavLink to={"/user/notification"} className={"w-[70%] text-center"}>NOTIFY</NavLink>
                     <NavLink to={"/user/userProfile"} className={"w-[70%] text-center"}>USER PROFILE</NavLink>
                 </section>
@@ -38,9 +39,10 @@ const Navbar = () => {
 {/* ================web naviagteion========================= */}
             <nav className=" web-nav w-[80%] h-6 flex justify-between" style={{color:theme.pastel}}>
                 <section className="w-[80%] flex  justify-evenly" >
-                    <NavLink to={"/user/explore"} className={`w-[25%] text-center text-sm`}>EXPLORE</NavLink>
-                    <NavLink to={"/user/planTrip"} className={`w-[25%] text-center text-sm`}>PLAN TRIP</NavLink>
-                    <NavLink to={"/user/notification"} className={`w-[25%] text-center text-sm`}>NOTIFY</NavLink>
+                    <NavLink to={"/user/explore"} className={`w-[20%] text-center text-sm`}>EXPLORE</NavLink>
+                    <NavLink to={"/user/planTrip"} className={`w-[20%] text-center text-sm`}>PLAN TRIP</NavLink>
+                    <NavLink to={"/user/myTrips"} className={"w-[20%] text-center text-sm"}>My Trips</NavLink>
+                    <NavLink to={"/user/notification"} className={`w-[20%] text-center text-sm`}>NOTIFY</NavLink>
                 </section>
 
                 <FaUserCircle onClick={() => {

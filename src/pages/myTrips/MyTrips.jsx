@@ -1,0 +1,26 @@
+import { useSelector } from "react-redux"
+import useGetAuthUserTrips from "../../hooks/useGetAuthUserTrips"
+import { useEffect, useState } from "react";
+import MyTripsCard from "./MyTripsCard";
+const MyTrips = () => {
+
+    useGetAuthUserTrips()
+
+    const { theme } = useSelector(state => state.theme);
+    const userTrips = useSelector(state => state?.user?.userHostedTrips)
+    // console.log(userTrips)
+
+
+    return (
+        <div className="min-h-screen h-auto bg-slate-100 flex flex-col justify-center items-center text-black">
+            <section className="h-auto w-[100%] max-w-150 flex flex-col gap-5 pt-5 items-center">
+                {userTrips?.length > 0 ? (userTrips.map((v, i) => {
+
+                    return <MyTripsCard key={i} data={v} />
+
+                })) : (<>LOading</>)}
+            </section>
+        </div>
+    )
+}
+export default MyTrips

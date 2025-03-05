@@ -39,16 +39,14 @@ const Login = () => {
     }
     setLoading(true)
 
+    
     try {
-
       axios.defaults.withCredentials = true;
       const isLoggedIn = await axios.post(import.meta.env.VITE_API_URL + "/auth/login", formData, {
         withCredentials: true
       })
-      
-
       if (isLoggedIn) {
-        console.log(isLoggedIn)
+        // console.log(isLoggedIn)
         dispatch(setAuthUser(isLoggedIn.data.user))
         toast.success(isLoggedIn.data.msg)
         setTimeout(() => {

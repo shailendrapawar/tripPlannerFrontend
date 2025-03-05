@@ -15,10 +15,10 @@ import PlanTrip from './pages/planTrip/PlanTrip.jsx'
 import UserProfile from './pages/userProfile/UserProfile.jsx'
 import Explore from './pages/explore/Explore.jsx'
 import Notification from './pages/notification/Notification.jsx'
-import UserTrips from "./pages/userTrips/UserTrips.jsx"
-import UserPosts from "./pages/userPosts/UserPosts.jsx"
-import UserProfileLayout from './pages/userProfile/UserProfileLayout.jsx'
 import EditProfile from './pages/editProfile/EditProfile.jsx'
+import MyTrips from './pages/myTrips/MyTrips.jsx'
+
+
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 
@@ -33,11 +33,10 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
       <Route path='/user/explore' element={<Explore />}></Route>
       <Route path='/user/planTrip' element={<PlanTrip />}></Route>
       <Route path='/user/notification' element={<Notification />}></Route>
-      <Route path='/user/userProfile' element={<UserProfile />}>
-        <Route path='/user/userProfile' element={<UserProfileLayout/>}></Route>
-        <Route path='/user/userProfile/userTrips' element={<UserTrips/>}></Route>
-        <Route path='/user/userProfile/userPosts' element={<UserPosts/>}></Route>
-      </Route>
+
+      <Route path='/user/userProfile' element={<UserProfile />}></Route>
+
+      <Route path='/user/myTrips' element={<MyTrips/>}></Route>
 
       <Route path='/user/editProfile' element={<EditProfile/>}></Route>
     </Route>

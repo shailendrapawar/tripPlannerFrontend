@@ -3,8 +3,8 @@ import { IoIosRemoveCircle } from "react-icons/io";
 import { IoMdAddCircle } from "react-icons/io";
 import avatarImg from "../../assets/images/user-avatar.png"
 import  "./userProfile.css"
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
 const UserProfile = () => {
 
     const { authUser } = useSelector(state => state.user)
@@ -14,7 +14,7 @@ const UserProfile = () => {
 
     const navigate=useNavigate()
     // const postPageRef=useRef()
-
+    
     return (
         <div className="userProfile-body h-auto">
 
@@ -46,20 +46,12 @@ const UserProfile = () => {
 
             <section className="user-review flex justify-center" style={{backgroundColor:theme.pastel}}>
                 <div className="w-[90%] max-w-[600px]">
-                    <section className=" flex h-10 justify-center items-center" style={{backgroundColor:theme.primary,color:"white"}}>
-                        <Link to="/user/userProfile/userTrips" className={"w-[50%] h-full flex justify-center items-center border-b-transparent border-b-2-transparent "}>TRIPS</Link>
-                        <Link to={"/user/userProfile/userPosts"} className={"w-[50%] h-full flex justify-center items-center  "}>POSTS</Link>
-                    </section>
-                    <section className=" h-100 bg-green-100">
-                        <Outlet/>
-                    </section>
+                    
                 </div>
             </section>
 
 
-            <section className="h-10">
-                reviews
-            </section>
+            
 
         </div>
     )
