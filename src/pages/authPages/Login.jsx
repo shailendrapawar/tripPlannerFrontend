@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { setAuthUser } from "../../store/slice/userSlice"
+import { setAuthUser,setUserNotifications } from "../../store/slice/userSlice"
 import logoImg from "../../assets/images/packPals-icon.jpg"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -48,6 +48,7 @@ const Login = () => {
       if (isLoggedIn) {
         // console.log(isLoggedIn)
         dispatch(setAuthUser(isLoggedIn.data.user))
+        dispatch(setUserNotifications(isLoggedIn.data.user.notifications))
         toast.success(isLoggedIn.data.msg)
         setTimeout(() => {
           navigate("/user/")

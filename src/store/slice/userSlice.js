@@ -4,7 +4,8 @@ const slice=createSlice({
     name:"user",
     initialState:{
         authUser:null,
-        userHostedTrips:null
+        userHostedTrips:null,
+        userNotifications:null
     },
     reducers:{
         setAuthUser:(state,action)=>{
@@ -12,10 +13,13 @@ const slice=createSlice({
         },
         setUserHostedTrips:(state,action)=>{
             state.userHostedTrips=action.payload
+        },
+        setUserNotifications:(state,action)=>{
+            state.userNotifications=action.payload
         }
     }
 })
 
-export const{setAuthUser,setUserHostedTrips}=slice.actions;
+export const{setAuthUser,setUserHostedTrips,setUserNotifications}=slice.actions;
 
 export default slice.reducer

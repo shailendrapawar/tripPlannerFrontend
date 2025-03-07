@@ -36,7 +36,7 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
 
       <Route path='/user/userProfile' element={<UserProfile />}></Route>
 
-      <Route path='/user/myTrips' element={<MyTrips/>}></Route>
+      <Route path='/user/myTrips' element={<MyTrips/>} ></Route>
 
       <Route path='/user/editProfile' element={<EditProfile/>}></Route>
     </Route>
