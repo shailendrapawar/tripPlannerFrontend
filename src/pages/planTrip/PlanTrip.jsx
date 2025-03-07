@@ -1,14 +1,23 @@
+import "./planTrip.css"
 import { useSelector } from "react-redux"
 import SearchBar from "../../components/searchBar/SearchBar"
 import Todos from "../../components/todo/Todos"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import toast from "react-hot-toast"
 import axios from "axios"
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import imgSrc from "../../assets/images/upload-img.jpg"
+
+import { BiSolidImageAdd } from "react-icons/bi";
+
 
 const PlanTrip = () => {
   const { theme } = useSelector(state => state.theme)
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+
+  const [tripImg, setTripImg] = useState("")
+  const [tripImgUrl, setImgUrl] = useState(imgSrc)
+  const tripImgRef = useRef();
   const [tripForm, setTripForm] = useState({
     title: "",
     category: "",
@@ -47,6 +56,7 @@ const PlanTrip = () => {
     const reqData = {
       title: tripForm.title,
       description: tripForm.description,
+      tripImg:tripImg,
 
       startDate: tripForm.startDate,
       endDate: tripForm.endDate,
@@ -84,11 +94,23 @@ const PlanTrip = () => {
 
         <SearchBar destination={destination} setDestination={setDestination} />
 
+
         <div className="h-auto flex flex-col justify-center items-center gap-2">
-          <input value={tripForm.title} onChange={(e) => handleChange(e)} name="title" placeholder="enter trip title" className="w-[320px] h-10 text-center bg-white outline-none"></input>
+
+          <div className=" h-50 w-[320px] relative rounded-xl overflow-hidden" onClick={() => tripImgRef?.current?.click()}>
+            <img src={tripImgUrl} alt="trip pic" className="w-full h-full object-cover " ></img>
+            <input type="file" className="w-full hidden " ref={tripImgRef} onChange={(e) => {
+              setTripImg(e.target.files[0])
+              const url = URL.createObjectURL(e.target.files[0])
+              setImgUrl(url)
+            }}></input>
+          </div>
+
+          <input value={tripForm.title} onChange={(e) => handleChange(e)} name="title" placeholder="enter trip title" className="w-[320px] h-10 text-center bg-white outline-none border-2 rounded-md border-slate-500"></input>
 
           <div className="w-[320px] flex gap-1 h-6">
-            <select value={tripForm.category} onChange={(e) => handleChange(e)} name="category" className="w-[50%] bg-white outline-none text-xs">
+            <select value={tripForm.category} onChange={(e) => handleChange(e)} name="category" className="w-[50%] bg-white outline-none text-xs border-1  border-slate-500">
+            <option value={""}>select category</option>
               <option value={"adventure"}>Adventure</option>
               <option value={"heritage"}>Heritage</option>
               <option value={"relaxation"}>Relaxation</option>
@@ -97,17 +119,17 @@ const PlanTrip = () => {
               <option value={"family"}>Family</option>
             </select>
 
-            <input value={tripForm.budget} onChange={(e) => handleChange(e)} name="budget" type="number" placeholder="enter budget" className="w-[50%] bg-white text-xs text-center outline-none" ></input>
+            <input value={tripForm.budget} onChange={(e) => handleChange(e)} name="budget" type="number" placeholder="enter budget" className="w-[50%] bg-white text-xs text-center outline-none border-1 border-slate-500" ></input>
           </div>
 
           <div className="w-[320px] flex justify-between h-8 relative">
             <i className=" absolute text-[8px] top-1 left-1">Start date</i>
-            <input value={tripForm.startDate} onChange={(e) => handleChange(e)} name="startDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14  select-none cursor-pointer"></input>
-            <input value={tripForm.endDate} onChange={(e) => handleChange(e)} name="endDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14 select-none cursor-pointer"></input>
+            <input value={tripForm.startDate} onChange={(e) => handleChange(e)} name="startDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14  select-none cursor-pointer border-1 border-slate-500"></input>
+            <input value={tripForm.endDate} onChange={(e) => handleChange(e)} name="endDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14 select-none cursor-pointer border-1 border-slate-500"></input>
             <i className=" absolute text-[8px] top-1 right-29">End date</i>
           </div>
 
-          <textarea value={tripForm.description} onChange={(e) => handleChange(e)} name="description" className="w-[320px] h-20 resize-none text-xs p-1 outline-none bg-white" placeholder="enter little description of trip"></textarea>
+          <textarea value={tripForm.description} onChange={(e) => handleChange(e)} name="description" className=" tripDesc-body w-[320px] h-20 resize-none text-xs p-1 outline-none bg-white border-2 rounded-md border-slate-500" placeholder="enter little description of trip"></textarea>
 
 
           <Todos activities={activities} setActivities={setActivities} />

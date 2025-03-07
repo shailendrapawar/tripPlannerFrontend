@@ -3,34 +3,9 @@ import NotificationCard from "../../components/notificationCard/NotificationCard
 import "./notification.css"
 const Notification = () => {
 
-  const notification=[
-    {
-      message:"smaple notiskj dfkjf dfdkj fkdjf kdf d kdf jkd fkjjd kdfdkf d jkkjdifcation message",
-      read:false
-    },
-    {
-      message:"smaple notiifcation message",
-      read:true
-    },
-    {
-      message:"smaple notiifcation message",
-      read:true
-    },
-    {
-      message:"smaple notiifcation message",
-      read:false
-    },
-    {
-      message:"smaple notiifcation message",
-      read:true
-    },
-    {
-      message:"smaple notiifcation message",
-      read:true
-    },
-
+  const{userNotifications}=useSelector(s=>s.user);
+  console.log(userNotifications)
     
-  ]
   const{theme}=useSelector(state=>state.theme)
   const {authUser} =useSelector(state=>state.user)
   // console.log(authUser?.notifications)
@@ -38,9 +13,9 @@ const Notification = () => {
 
     <div className="notification-body h-[90%] flex flex-col justify-start items-center gap-1 pt-5 z-0" style={{backgroundColor:theme.pastel}}>
       {
-        notification.map((item,i)=>{
+        userNotifications?.length>0?(userNotifications?.map((item,i)=>{
           return <NotificationCard data={item} key={i}/>
-        })
+        })):(<span className="" style={{color:theme.dark}}>Yout notifications will appear here</span>)
       }
     </div>
   )

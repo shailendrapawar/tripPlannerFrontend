@@ -1,6 +1,8 @@
 const Explore = () => {
   return (
-    <div>Explore</div>
+    <div>
+      explore page
+    </div>
   )
 }
 export default Explore

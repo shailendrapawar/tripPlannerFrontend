@@ -1,0 +1,10 @@
+.tripDesc-body::-webkit-scrollbar{
+width: 3px;
+}
+.tripDesc-body::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+.tripDesc-body::-webkit-scrollbar-thumb{
+    background-color: black;
+    border-radius: 30px;
+}

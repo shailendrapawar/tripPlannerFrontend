@@ -10,3 +10,20 @@
     background: rgb(148, 148, 148); /* Scrollbar handle */
     border-radius: 10px;
   }
+
+
+  .todo-item{
+    transition: 0.2s ease-in;
+    animation: todoEntry 0.2s ;
+  }
+
+  @keyframes todoEntry{
+    0%{
+        translate: 0px -20px;
+        opacity: 0;
+    }
+    100%{
+        translate: 0px 0px;
+        opacity: 1;
+    }
+  }

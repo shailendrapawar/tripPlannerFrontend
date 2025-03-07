@@ -18,6 +18,7 @@ const Login = () => {
     email: "",
     password: ""
   })
+  
   const handleChange = (e) => {
     // console.log(e.target.name)
     const { name, value } = e.target;
@@ -26,6 +27,7 @@ const Login = () => {
       [name]: value
     }))
   }
+
 
 
   const handleLogin = async () => {
@@ -39,7 +41,6 @@ const Login = () => {
     }
     setLoading(true)
 
-    
     try {
       axios.defaults.withCredentials = true;
       const isLoggedIn = await axios.post(import.meta.env.VITE_API_URL + "/auth/login", formData, {
@@ -62,6 +63,8 @@ const Login = () => {
       setLoading(false)
     }
   }
+
+
 
   return (
     <div className="login-body h-screen flex justify-center items-center">
