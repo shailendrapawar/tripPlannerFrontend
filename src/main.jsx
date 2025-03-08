@@ -17,6 +17,7 @@ import Explore from './pages/explore/Explore.jsx'
 import Notification from './pages/notification/Notification.jsx'
 import EditProfile from './pages/editProfile/EditProfile.jsx'
 import MyTrips from './pages/myTrips/MyTrips.jsx'
+import UserPublicPorfile from './pages/userPublicProfile/UserPublicPorfile.jsx'
 
 
 const myRouter = createBrowserRouter(createRoutesFromElements(
@@ -31,12 +32,12 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
       <Route path='/user/' element={<Home />}></Route>
       <Route path='/user/explore' element={<Explore />}></Route>
       <Route path='/user/planTrip' element={<PlanTrip />}></Route>
+      <Route path='/user/userPublicProfile/:userId' element={<UserPublicPorfile/>}></Route>
+
+
       <Route path='/user/notification' element={<Notification />}></Route>
-
       <Route path='/user/userProfile' element={<UserProfile />}></Route>
-
       <Route path='/user/myTrips' element={<MyTrips/>} ></Route>
-
       <Route path='/user/editProfile' element={<EditProfile/>}></Route>
     </Route>
 

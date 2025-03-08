@@ -4,7 +4,7 @@ import "./notification.css"
 const Notification = () => {
 
   const{userNotifications}=useSelector(s=>s.user);
-  console.log(userNotifications)
+  // console.log(userNotifications)
     
   const{theme}=useSelector(state=>state.theme)
   const {authUser} =useSelector(state=>state.user)

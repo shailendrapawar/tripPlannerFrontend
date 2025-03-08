@@ -48,7 +48,6 @@ const SearchBar = ({destination,setDestination}) => {
         toast.success(`destination selected:- ${data.formatted}`)
     }
 
-
     return (
         <div className="  flex flex-col justify-center items-center">
             <div className="relative flex border-2 rounded-md border-slate-500">
@@ -62,10 +61,12 @@ const SearchBar = ({destination,setDestination}) => {
                         latitude:"",
                         longitude:""
                     })
+                    toast.error("location unset")
+
                 }} className="absolute right-1 top-3"/>
             </div>
             {
-                suggestion.length > 0 ? (<ul className="h-auto max-h-30 w-70 overflow-y-scroll ">
+                suggestion.length > 0 ? (<ul className=" search-list-body h-auto max-h-30 w-70 overflow-y-scroll ">
                     {suggestion.map((item, i) => <SearchList data={item?.properties} key={i} fn={handleSelect} />)}
                 </ul>) : (<i></i>)
             }

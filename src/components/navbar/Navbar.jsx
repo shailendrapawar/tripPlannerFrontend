@@ -17,10 +17,13 @@ const Navbar = () => {
     return (
         <nav className=" h-18 flex justify-between items-center pl-5 pr-5 relative cursor-pointer" style={{ backgroundColor: theme.dark }}>
             
-            <h1 onClick={() => {
+            <span onClick={() => {
                 setVisible(false)
                 navigate("/user/")
-            }}>PackPals</h1>
+                
+            }}
+            className="text-2xl text-white font-sans"
+            >PackPals</span>
 
     
 {/* ================mobile navigation=========================== */}

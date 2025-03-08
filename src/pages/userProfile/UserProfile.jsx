@@ -10,7 +10,7 @@ const UserProfile = () => {
     const { authUser } = useSelector(state => state.user)
     const{theme}=useSelector(state=>state.theme)
     const userAvatar = authUser?.avatar || avatarImg
-    console.log(authUser)
+    // console.log(authUser)
 
     const navigate=useNavigate()
     // const postPageRef=useRef()

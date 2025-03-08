@@ -51,6 +51,12 @@ const PlanTrip = () => {
     }
     if (destination.destination === "") {
       toast.error("select destination");
+      return 
+    }
+
+    if(tripImg==""){
+      toast.error("choose cover photo");
+      return 
     }
 
     const reqData = {
@@ -97,7 +103,7 @@ const PlanTrip = () => {
 
         <div className="h-auto flex flex-col justify-center items-center gap-2">
 
-          <div className=" h-50 w-[320px] relative rounded-xl overflow-hidden" onClick={() => tripImgRef?.current?.click()}>
+          <div className=" h-50 w-[320px] relative rounded-xl overflow-hidden shadow-md active:shadow-xs shadow-black" onClick={() => tripImgRef?.current?.click()}>
             <img src={tripImgUrl} alt="trip pic" className="w-full h-full object-cover " ></img>
             <input type="file" className="w-full hidden " ref={tripImgRef} onChange={(e) => {
               setTripImg(e.target.files[0])

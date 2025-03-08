@@ -5,7 +5,8 @@ const slice=createSlice({
     initialState:{
         authUser:null,
         userHostedTrips:null,
-        userNotifications:null
+        userNotifications:null,
+
     },
     reducers:{
         setAuthUser:(state,action)=>{
@@ -16,7 +17,8 @@ const slice=createSlice({
         },
         setUserNotifications:(state,action)=>{
             state.userNotifications=action.payload
-        }
+        },
+
     }
 })
 

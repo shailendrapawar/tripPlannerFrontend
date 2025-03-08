@@ -48,7 +48,7 @@ const Todos = ({activities,setActivities}) => {
     return (
         <div className="w-[320px] mt-5">
             <h1 className="text-center">Activities for trip</h1>
-            <section className="flex w-full h-12 relative bg-white gap-1 rounded-md" style={{border:`4px solid ${theme.dark}`,}}>
+            <section className="flex w-full h-12 relative bg-white gap-1 rounded-md " style={{border:`4px solid ${theme.dark}`,}}>
                 <input value={input.day} onChange={(e)=>handleChange(e)} name="day" type="number" className="w-[15%] h-full text-center outline-none text-xs font-semibold" ></input>
                 <input value={input.activity} onChange={(e)=>handleChange(e)} name="activity" type="text" className="w-[75%] h-full text-xs pl-1 pr-1 outline-none text-center " placeholder="enter activity for the day"></input>
                 <button onClick={()=>addTodo()} className="w-[10%] h-full text-xs flex items-center justify-center"><IoAddCircle className="h-7 w-7" /></button>
