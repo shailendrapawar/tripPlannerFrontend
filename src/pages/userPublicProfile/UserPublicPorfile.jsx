@@ -70,7 +70,7 @@ const UserPublicPorfile = () => {
       <div className="bg-white shadow-lg rounded-2xl p-6 max-w-lg w-full">
         {/* Profile Header */}
         <div className="flex items-center flex-col relative">
-        <IoArrowBackCircleSharp className="h-10 w-10 absolute left-0"
+        <IoArrowBackCircleSharp className="h-10 w-10 absolute left-0 active:scale-75"
         onClick={()=>navigate(-1)}
         />
           <div className="w-30 h-30 bg-gray-300 rounded-full overflow-hidden "

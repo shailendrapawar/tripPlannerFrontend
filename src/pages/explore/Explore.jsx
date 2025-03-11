@@ -6,14 +6,13 @@ import TripCard from "../../components/tripCard/TripCard";
 
 const Explore = () => {
 
-  const[loading,setLaoding]=useState(false);
+  const[loading,setLoading]=useState(false);
   const[destination,setDestination]=useState("")
 
   const {exploreTrips}=useSelector(s=>s.trip)
   const{theme}=useSelector(s=>s.theme)
 
-  console.log(exploreTrips)
-
+  // console.log(exploreTrips)
 
   return (
     <div className=" h-auto min-h-full flex flex-col items-center">
@@ -22,8 +21,6 @@ const Explore = () => {
         <SearchBar destination={destination} setDestination={setDestination}/>
         <button className="w-25 h-11 rounded-md" style={{backgroundColor:theme.primary, color:theme.pastel}}>SEARCH</button>
       </div>
-      
-
 
       <div className="w-full h-auto  mt-5 flex p-2  flex-col items-center gap-5">
 
