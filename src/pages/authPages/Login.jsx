@@ -49,7 +49,6 @@ const Login = () => {
       if (isLoggedIn) {
         // console.log(isLoggedIn)
         dispatch(setAuthUser(isLoggedIn.data.user))
-        dispatch(setUserNotifications(isLoggedIn.data.user.notifications))
         toast.success(isLoggedIn.data.msg)
         setTimeout(() => {
           navigate("/user/")

@@ -1,0 +1,28 @@
+
+.circle-loader {
+    width: 5px;
+    height: 5px;
+    background-color: #3b82f6; /* Tailwind blue-500 */
+    border-radius: 50%;
+    animation: pulseBig 0.5s infinite ease-in-out;
+  }
+  
+  @keyframes pulseBig {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+  }
+  
+  /* Delay for wave effect */
+  .animation-delay-150 {
+    animation-delay: 0.15s;
+  }
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+  

@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import NotificationCard from "../../components/notificationCard/NotificationCard"
 import "./notification.css"
+import useGetNotifications from "../../hooks/useGetNotifications";
 const Notification = () => {
 
   const{userNotifications}=useSelector(s=>s.user);
@@ -9,6 +10,8 @@ const Notification = () => {
   const{theme}=useSelector(state=>state.theme)
   const {authUser} =useSelector(state=>state.user)
   // console.log(authUser?.notifications)
+
+  useGetNotifications()
   return (
 
     <div className="notification-body h-[90%] flex flex-col justify-start items-center gap-1 pt-5 z-0" style={{backgroundColor:theme.pastel}}>

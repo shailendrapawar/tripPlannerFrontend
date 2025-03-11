@@ -16,6 +16,7 @@ const TripCard = ({ data }) => {
 
 
   const alreadyRequested= (data?.requestedUsers?.includes(authUser?._id))
+  const alreadyApporved=(data?.approvedUser.includes(authUser?._id))
 
 
   const formatDate = (isoDate) => {
@@ -24,11 +25,16 @@ const TripCard = ({ data }) => {
 
   const requestForTrip = async () => {
     try {
-      const isExist = data.requestedUsers.includes(authUser?._id)
-      if (isExist) {
-        toast.error("already requested")
+      
+      if (alreadyRequested) {
+        toast.error("already requested ")
         return
       }
+      if(alreadyApporved){
+        toast.error("you are already approved")
+        return
+      }
+      
 
       const isRequested = await axios.post(import.meta.env.VITE_API_URL + `/trip/requestForTrip/${data._id}/${authUser.name}`, {
         withCredentials: true
