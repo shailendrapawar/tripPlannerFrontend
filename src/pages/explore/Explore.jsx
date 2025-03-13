@@ -3,16 +3,19 @@ import useGetAllTrips from "../../hooks/useGetAllTrips";
 import { useSelector } from "react-redux";
 import SearchBar from "../../components/searchBar/SearchBar";
 import TripCard from "../../components/tripCard/TripCard";
+import useGetAuthUserTrips from "../../hooks/useGetAuthUserTrips";
 
 const Explore = () => {
 
-  const[loading,setLoading]=useState(false);
   const[destination,setDestination]=useState("")
 
   const {exploreTrips}=useSelector(s=>s.trip)
   const{theme}=useSelector(s=>s.theme)
 
   // console.log(exploreTrips)
+
+  // useGetAuthUserTrips()
+  useGetAllTrips()
 
   return (
     <div className=" h-auto min-h-full flex flex-col items-center">
@@ -28,7 +31,7 @@ const Explore = () => {
           exploreTrips.map((item,i)=>{
             return <TripCard data={item} key={i} />
           })
-        ):(<>Loading...</>)}
+        ):(<>No trips to show</>)}
 
       </div>
 

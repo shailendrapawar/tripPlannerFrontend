@@ -4,8 +4,8 @@ import useGetAuthUserTrips from "../hooks/useGetAuthUserTrips"
 import useGetAllTrips from "../hooks/useGetAllTrips"
 const PageLayout = () => {
 
-  useGetAuthUserTrips()
-  useGetAllTrips()
+  // useGetAuthUserTrips()
+  // useGetAllTrips()
   
   return (
     <div className="h-full ">

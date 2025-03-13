@@ -22,7 +22,8 @@ import EditProfile from './pages/editProfile/EditProfile.jsx'
 import MyTrips from './pages/myTrips/MyTrips.jsx'
 import UserPublicPorfile from './pages/userPublicProfile/UserPublicPorfile.jsx'
 
-
+import axios from 'axios'
+axios.defaults.withCredentials=true
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 

@@ -11,9 +11,12 @@ const useGetAuthUserTrips = () => {
     
     useEffect(() => {
         const getUserTrips = async () => {
+    
             try {
-                axios.defaults.withCredentials = true;
-                const res = await axios.get(import.meta.env.VITE_API_URL + `/trip/getUserHostedTrips`)
+                
+                const res = await axios.get(import.meta.env.VITE_API_URL + `/trip/getUserHostedTrips`,{
+                    withCredentials:true
+                })
                 
                 if(res){
                 //    console.log(res.data.trips)

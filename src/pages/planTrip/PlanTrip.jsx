@@ -9,11 +9,14 @@ import { useNavigate } from "react-router-dom"
 import imgSrc from "../../assets/images/upload-img.jpg"
 
 import { BiSolidImageAdd } from "react-icons/bi";
+import MiniLoader from "../../components/miniLoader/MiniLoader"
 
 
 const PlanTrip = () => {
   const { theme } = useSelector(state => state.theme)
   const navigate = useNavigate()
+
+  const[loading,setLoading]=useState(false)
 
   const [tripImg, setTripImg] = useState("")
   const [tripImgUrl, setImgUrl] = useState(imgSrc)
@@ -45,6 +48,9 @@ const PlanTrip = () => {
   }
 
   const handleCreateTrip = async () => {
+    if(loading){
+      return;
+    }
     if (tripForm.title === "" || tripForm.budget === "" || tripForm.category === "" || tripForm.description === "" || tripForm.endDate === "" || tripForm.startDate === "") {
       toast.error("enter all field in mid-form");
       return
@@ -59,6 +65,7 @@ const PlanTrip = () => {
       return 
     }
 
+    setLoading(true)
     const reqData = {
       title: tripForm.title,
       description: tripForm.description,
@@ -90,6 +97,8 @@ const PlanTrip = () => {
       }
     } catch (err) {
       console.log(err)
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -140,7 +149,7 @@ const PlanTrip = () => {
 
           <Todos activities={activities} setActivities={setActivities} />
 
-          <button onClick={() => handleCreateTrip()} className="w-30 rounded-md h-10" style={{ backgroundColor: theme.primary, color: theme.pastel }}>create</button>
+          <button onClick={() => handleCreateTrip()} className="w-30 rounded-md h-10" style={{ backgroundColor: theme.primary, color: theme.pastel }}>{loading?"Creating...":"Create"}</button>
 
         </div>
 

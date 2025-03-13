@@ -5,7 +5,7 @@ import MyTripsCard from "./MyTripsCard";
 import Loader from "../../components/loader/Loader";
 const MyTrips = () => {
 
-    // useGetAuthUserTrips()
+    useGetAuthUserTrips()
 
     const { theme } = useSelector(state => state.theme);
     const userTrips = useSelector(state => state?.user?.userHostedTrips)

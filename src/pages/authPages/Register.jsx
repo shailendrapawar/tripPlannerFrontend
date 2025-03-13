@@ -74,6 +74,8 @@ const Register = () => {
           <input type="email" value={formData.email} onChange={(e)=>handleChange(e)} name="email" placeholder="enter email" className="h-10 bg-white pl-1 pr-1 text-sm outline-none"></input>
           <input type="password" value={formData.password} onChange={(e)=>handleChange(e)} name="password" placeholder="enter password" className="h-10 bg-white pl-1 pr-1 text-sm outline-none"></input>
 
+          
+
           <section className="flex justify-evenly h-6 ">
             <select value={formData.gender} onChange={(e)=>handleChange(e)} name="gender" className="w-30 rounded-xl text-center text-xs cursor-pointer outline-none" style={{backgroundColor:theme.primary, color:theme.pastel}}>
               <option value={""}>select gender</option>

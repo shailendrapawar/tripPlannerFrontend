@@ -3,11 +3,12 @@ import themeReducer from "../store/slice/themeSlice.js"
 import userReducer from "../store/slice/userSlice.js"
 import tripReducer from "../store/slice/tripSlice.js"
 import {persistReducer,persistStore} from "redux-persist"
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/lib/storage/session"
 //====configuring the persist 
 const persistConfig={
     key:"root",
-    storage
+    storage:sessionStorage
 }
 
 //====combining reducer necceray for persist

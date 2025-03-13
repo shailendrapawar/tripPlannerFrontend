@@ -7,8 +7,9 @@ const useGetNotifications = () => {
   useEffect(() => {
 
     const fetchNotifications = async () => {
-      const res = await axios.get(import.meta.env.VITE_API_URL + `/auth/getUserNotifications`, {
-        withCredentials: true
+      // axios.defaults.withCredentials=true
+      const res = await axios.get(import.meta.env.VITE_API_URL + `/auth/getUserNotifications`,{
+         withCredentials:true
       })
       if (res) {
         // console.log(res.data.notifications)

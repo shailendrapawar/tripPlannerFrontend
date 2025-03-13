@@ -18,7 +18,6 @@ const TripCard = ({ data }) => {
   const alreadyRequested= (data?.requestedUsers?.includes(authUser?._id))
   const alreadyApporved=(data?.approvedUser.includes(authUser?._id))
 
-
   const formatDate = (isoDate) => {
     return new Date(isoDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   };
@@ -81,15 +80,19 @@ const TripCard = ({ data }) => {
             alt="Host"
           />
           <span className=" " style={{ color: theme.dark }}
-          >Hosted by {data.host.name}</span>
+          >Hosted by {data?.host?.name}</span>
         </div>
 
         <div className="h-10 mt-4 flex justify-end">
-          <button className="w-25 h-full  py-2 rounded-lg transition shadow-md shadow-black active:shadow-none" style={{ backgroundColor: theme.primary, color: theme.pastel }}
+          {alreadyApporved?(
+            <button className="w-25 h-full  py-2 rounded-lg text-sm transition shadow-md shadow-black active:shadow-none" style={{ backgroundColor: theme.primary, color: theme.pastel }}>
+              Enter Group
+            </button>
+          ):(<button className="w-25 h-full  py-2 rounded-lg transition shadow-md shadow-black active:shadow-none" style={{ backgroundColor: theme.primary, color: theme.pastel }}
             onClick={() => requestForTrip()}
           >
             {alreadyRequested?"REQUESTED":"REQUEST"}
-          </button>
+          </button>)}
         </div>
 
 

@@ -65,15 +65,15 @@ const UserPublicPorfile = () => {
 
 
   return (
-    <div className=" h-full bg-gray-100 flex flex-col items-center mt-5 p-2 cursor-pointer relative">
+    <div className=" h-full flex flex-col items-center p-2 cursor-pointer relative" style={{backgroundColor:theme.pastel}}>
       
-      <div className="bg-white shadow-lg rounded-2xl p-6 max-w-lg w-full">
+      <div className=" shadow-lg rounded-2xl p-6 max-w-lg w-full" style={{backgroundColor:theme.light}}>
         {/* Profile Header */}
         <div className="flex items-center flex-col relative">
         <IoArrowBackCircleSharp className="h-10 w-10 absolute left-0 active:scale-75"
         onClick={()=>navigate(-1)}
         />
-          <div className="w-30 h-30 bg-gray-300 rounded-full overflow-hidden "
+          <div className="w-30 h-30  rounded-full overflow-hidden "
             style={{ border: ` 3px solid ${theme.dark}` }}
           >
             <img
@@ -114,7 +114,7 @@ const UserPublicPorfile = () => {
         </div>
       </div>
 
-      <section className="mt-5 h-auto  w-full flex-wrap items-center justify-center gap-5" style={dropDown ? { display: "flex" } : { display: "none" }}>
+      <section className="mt-5  min-h-auto  w-full flex-wrap items-center justify-center gap-5" style={dropDown ? { display: "flex" } : { display: "none" }}>
 
         {userRelatedTrips.length>0?(userRelatedTrips.map((item,i)=>{
           return <TripCard data={item} key={i}/>
