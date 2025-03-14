@@ -19,7 +19,7 @@ const useGetAuthUserTrips = () => {
                 })
                 
                 if(res){
-                //    console.log(res.data.trips)
+                   console.log(res.data.trips)
                    dispatch(setUserHostedTrips(res.data.trips))
                 }
             } catch (err) {

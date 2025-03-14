@@ -7,6 +7,13 @@ import { FaCircle } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { useState } from "react";
 
+import sampleUserAvatar from "../../assets/images/user-avatar.png"
+
+import { IoFemaleSharp } from "react-icons/io5";
+import { IoMaleSharp } from "react-icons/io5";
+
+import { useNavigate} from "react-router-dom"
+
 const MyTripsCard = ({ data }) => {
 
   const { theme } = useSelector(s => s.theme)
@@ -16,9 +23,29 @@ const MyTripsCard = ({ data }) => {
     return new Date(isoDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   };
 
+  const tempdqta = [
+    {
+      name: "shailu",
+      avatar: "",
+    },
+    {
+      name: "kanak",
+      avatar: "",
+    },
+    {
+      name: "sharad",
+      avatar: "",
+    },
+    {
+      name: "yogi",
+      avatar: "",
+    }
+
+  ]
+
   return (
     <div className="myTrip-card-body w-[95%] max-w-150 h-90  rounded-md overflow-hidden relative" style={{ backgroundColor: theme.pastel, }}>
-      <div className="h-full" style={showStats?{display:"none"}:{display:"block"}}>
+      <div className="h-full" style={showStats ? { display: "none" } : { display: "block" }}>
         <img src={imgSrc} className="myTrip-card-img h-[50%] w-full bg-slate-200 object-cover"></img>
 
         <section className="pl-3 pr-3 h-[50%] relative flex items-center flex-col gap-1 justify-evenly">
@@ -42,23 +69,57 @@ const MyTripsCard = ({ data }) => {
             <button className=" h-full w-20 rounded-md bg-red-500 text-white text-sm">DELETE</button>
           </div> */}
 
-          <button className="w-full h-10 rounded-md text-white" style={{ backgroundColor: theme.primary, }} onClick={()=>setShowStats(true)}>See Stats</button>
+          <button className="w-full h-10 rounded-md text-white" style={{ backgroundColor: theme.primary, }} onClick={() => setShowStats(true)}>See Stats</button>
         </section>
       </div>
 
       {/* =============show stats section============================= */}
 
-      <div className="h-full w-full bg-amber-200">
-        satts
+      <div className="h-full w-full flex">
+        <section className="w-1/3">requested user</section>
+
+
+        <section className="w-2/3" style={{backgroundColor:theme.pastel}}>
+          <h2 className="h-[10%] flex items-center justify-center">Approved User</h2>
+
+          <div className="h-[90%]  p-2 flex flex-col gap-2">
+            {data.approvedUser.length>0?(data.approvedUser.map((item,i)=>{
+              return <ApprovedUserCard key={i} data={item}/>
+            })):(<></>)}
+          </div>
+        </section>
       </div>
 
+
+
       <span className=" h-10 w-10 flex justify-center items-center bg-white absolute top-0 left-0"
-      onClick={()=>setShowStats(false)}
-      style={showStats?{display:"flex"}:{display:"none"}}
+        onClick={() => setShowStats(false)}
+        style={showStats ? { display: "flex" } : { display: "none" }}
       >
         <FaArrowCircleRight className="h-6 w-6 rotate-180" />
       </span>
 
+    </div>
+  )
+}
+
+
+
+
+
+
+
+const ApprovedUserCard = ({data}) => {
+  const { theme } = useSelector(s => s.theme)
+
+  const navigate=useNavigate()
+  return (
+    <div className="h-15 w-full flex justify-start items-center gap-2 pl-2 bg-white relative rounded-md" style={{border:`2px solid ${theme.dark}`}}
+    onClick={()=>navigate(`/user/userPublicprofile/${data._id}`)}
+    >
+      <img src={data.avatar?data.avatar:sampleUserAvatar} className="h-13 w-13 rounded-full p-1"></img>
+      <p style={{color:theme.dark}}>{data.name}</p>
+      {data.gender==="male"?(<IoMaleSharp className="h-8 w-8 f text-blue-400 absolute right-2"/>):(<IoFemaleSharp className="h-8 w-8 f text-blue-400 absolute right-2"/>)}
     </div>
   )
 }
