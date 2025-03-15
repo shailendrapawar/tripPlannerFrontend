@@ -23,6 +23,7 @@ import MyTrips from './pages/myTrips/MyTrips.jsx'
 import UserPublicPorfile from './pages/userPublicProfile/UserPublicPorfile.jsx'
 
 import axios from 'axios'
+import SingleTripPage from './pages/singleTripPage/SingleTripPage.jsx'
 axios.defaults.withCredentials=true
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
@@ -37,6 +38,7 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
       <Route path='/user/explore' element={<Explore />}></Route>
       <Route path='/user/planTrip' element={<PlanTrip />}></Route>
       <Route path='/user/userPublicProfile/:userId' element={<UserPublicPorfile />}></Route>
+      <Route path='/user/singleTripPage/:tripId' element={<SingleTripPage/>}></Route>
 
 
       <Route path='/user/notification' element={<Notification />}></Route>

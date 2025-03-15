@@ -38,7 +38,7 @@ const UserPublicPorfile = () => {
         if (relatedTrips) {
           setUserRelatedTrips(relatedTrips.data.trips)
         }
-        console.log(relatedTrips)
+        // console.log(relatedTrips)
       }
     } catch (err) {
       console.log(err)
@@ -79,7 +79,7 @@ const UserPublicPorfile = () => {
             <img
               src={userProfile.avatar ? `${userProfile.avatar}` : `${userAvatar}`}
               alt="User Avatar"
-              className="w-full h-full object-contain bg-white p-3"
+              className="w-full h-full object-cover bg-white"
             />
           </div>
           

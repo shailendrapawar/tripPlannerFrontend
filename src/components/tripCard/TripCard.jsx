@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import axios from "axios"
 import { updateExploreTripCard } from "../../store/slice/tripSlice"
+
+import { FaExternalLinkAlt } from "react-icons/fa";
+
 const TripCard = ({ data }) => {
 
   // console.log(data)
@@ -52,7 +55,7 @@ const TripCard = ({ data }) => {
 
   return (
 
-    <div className="w-[100%] max-w-[600px] min-w-[300px] rounded-2xl overflow-hidden shadow-md shadow-black bg-white cursor-pointer ">
+    <div className="w-[100%] max-w-[600px] min-w-[300px] rounded-2xl overflow-hidden shadow-xs shadow-black bg-white cursor-pointer " >
       {/* Trip Image */}
       <img
         className="w-full h-48 object-cover"
@@ -83,7 +86,15 @@ const TripCard = ({ data }) => {
           >Hosted by {data?.host?.name}</span>
         </div>
 
-        <div className="h-10 mt-4 flex justify-end">
+        <div className="h-10 mt-4 flex justify-between">
+
+        {/* <FaExternalLinkAlt className="self-start w-10 h-10" style={{color:theme.primary}} /> */}
+
+        <span className="h-10 w-10 rounded hover:shadow-xs active:shadow-none shadow-black" style={{background:theme.pastel}}>
+                  <FaExternalLinkAlt className="self-start w-full h-full p-2" style={{color:theme.primary}}     onClick={()=>navigate(`/user/singleTripPage/${data._id}`)}/>
+        </span>
+
+
           {alreadyApporved?(
             <button className="w-25 h-full  py-2 rounded-lg text-sm transition shadow-md shadow-black active:shadow-none" style={{ backgroundColor: theme.primary, color: theme.pastel }}>
               Enter Group
