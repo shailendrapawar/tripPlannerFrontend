@@ -12,7 +12,8 @@ import sampleUserAvatar from "../../assets/images/user-avatar.png"
 import { IoFemaleSharp } from "react-icons/io5";
 import { IoMaleSharp } from "react-icons/io5";
 
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import Map from "./Map";
 
 const MyTripsCard = ({ data }) => {
 
@@ -75,17 +76,19 @@ const MyTripsCard = ({ data }) => {
 
       {/* =============show stats section============================= */}
 
-      <div className="h-full w-full flex">
-        <section className="w-1/3">requested user</section>
+      <div className="h-full w-full flex cursor-pointer select-none ">
+        <section className="w-1/2 flex justify-center items-center">
+          <Map data={data.destination} />
+        </section>
 
 
-        <section className="w-2/3" style={{backgroundColor:theme.pastel}}>
+        <section className="w-1/2" style={{ backgroundColor: theme.pastel }}>
           <h2 className="h-[10%] flex items-center justify-center">Approved User</h2>
 
           <div className="h-[90%]  p-2 flex flex-col gap-2">
-            {data.approvedUser.length>0?(data.approvedUser.map((item,i)=>{
-              return <ApprovedUserCard key={i} data={item}/>
-            })):(<></>)}
+            {data.approvedUser.length > 0 ? (data.approvedUser.map((item, i) => {
+              return <ApprovedUserCard key={i} data={item} />
+            })) : (<h1 className="text-center" style={{color:theme.dark}}> No user appproved yet</h1>)}
           </div>
         </section>
       </div>
@@ -109,17 +112,17 @@ const MyTripsCard = ({ data }) => {
 
 
 
-const ApprovedUserCard = ({data}) => {
+const ApprovedUserCard = ({ data }) => {
   const { theme } = useSelector(s => s.theme)
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   return (
-    <div className="h-15 w-full flex justify-start items-center gap-2 pl-2 bg-white relative rounded-md" style={{border:`2px solid ${theme.dark}`}}
-    onClick={()=>navigate(`/user/userPublicprofile/${data._id}`)}
+    <div className="h-15 w-full flex justify-start items-center gap-2 pl-2 bg-white relative rounded-md" style={{ border: `2px solid ${theme.dark}` }}
+      onClick={() => navigate(`/user/userPublicprofile/${data._id}`)}
     >
-      <img src={data.avatar?data.avatar:sampleUserAvatar} className="h-13 w-13 rounded-full p-1"></img>
-      <p style={{color:theme.dark}}>{data.name}</p>
-      {data.gender==="male"?(<IoMaleSharp className="h-8 w-8 f text-blue-400 absolute right-2"/>):(<IoFemaleSharp className="h-8 w-8 f text-blue-400 absolute right-2"/>)}
+      <img src={data.avatar ? data.avatar : sampleUserAvatar} className="h-12 w-12 rounded-full p-1"></img>
+      <p style={{ color: theme.dark }}>{data.name}</p>
+      {data.gender === "male" ? (<IoMaleSharp className="h-5 w-5  text-blue-400 absolute right-1.5" />) : (<IoFemaleSharp className="h-5 w-5 f text-blue-400 absolute right-2" />)}
     </div>
   )
 }
