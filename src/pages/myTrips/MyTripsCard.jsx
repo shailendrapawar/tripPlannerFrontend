@@ -45,7 +45,7 @@ const MyTripsCard = ({ data }) => {
   ]
 
   return (
-    <div className="myTrip-card-body w-[95%] max-w-150 h-90  rounded-md overflow-hidden relative" style={{ backgroundColor: theme.pastel, }}>
+    <div className="myTrip-card-body w-[95%] max-w-150 h-90  rounded-md overflow-hidden relative shadow-lg shadow-black" style={{ backgroundColor: theme.pastel, }}>
       <div className="h-full" style={showStats ? { display: "none" } : { display: "block" }}>
         <img src={imgSrc} className="myTrip-card-img h-[50%] w-full bg-slate-200 object-cover"></img>
 
@@ -77,8 +77,9 @@ const MyTripsCard = ({ data }) => {
       {/* =============show stats section============================= */}
 
       <div className="h-full w-full flex cursor-pointer select-none ">
-        <section className="w-1/2 flex justify-center items-center">
+        <section className="w-1/2 flex flex-col justify-center items-center">
           <Map data={data.destination} />
+          <button className="h-9 w-30 rounded-md self-end" style={{backgroundColor:theme.primary, color:theme.pastel}}>Enter group</button>
         </section>
 
 
@@ -127,3 +128,4 @@ const ApprovedUserCard = ({ data }) => {
   )
 }
 export default MyTripsCard
+
