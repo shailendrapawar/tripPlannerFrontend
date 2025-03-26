@@ -1,0 +1,18 @@
+.scrollClass{
+    overflow-x: scroll;
+    /* gap:2px */
+}
+
+.scrollClass::-webkit-scrollbar {
+    width: 3px; 
+    height: 3px;/* Width of the scrollbar */
+  }
+.scrollClass::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+    border-radius: 10px;
+  }
+  
+.scrollClass::-webkit-scrollbar-thumb {
+    background: #a2a2a2; /* Scrollbar handle */
+    border-radius: 10px;
+  }

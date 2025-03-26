@@ -108,11 +108,6 @@ const MyTripsCard = ({ data }) => {
 }
 
 
-
-
-
-
-
 const ApprovedUserCard = ({ data }) => {
   const { theme } = useSelector(s => s.theme)
 

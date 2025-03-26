@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import sampleImgSrc from "../../assets/images/sampleTrip-img.jpg"
 import smapleAvatarSrc from "../../assets/images/user-avatar.png"
+
+import maleAvatar from "../../assets/images/male-avatar.png"
+import femaleAvatar from "../../assets/images/female-avatar.png"
+
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import axios from "axios"
@@ -52,6 +56,14 @@ const TripCard = ({ data }) => {
     }
   }
 
+  
+    const setSampleAvatar=(gender)=>{
+      if(gender=="male"){
+        return maleAvatar
+      }
+      return femaleAvatar
+    }
+
 
   return (
 
@@ -78,8 +90,8 @@ const TripCard = ({ data }) => {
 
         >
           <img
-            className="w-10 h-10 rounded-full object-contain p-1 bg-white"
-            src={data.tripImg ? `${data.tripImg}` : `${smapleAvatarSrc}`}
+            className="w-12 h-12 rounded-full object-contain p-0.5 bg-white"
+            src={data?.host?.avatar ? `${data?.host?.avatar}` : `${setSampleAvatar(data?.host?.gender)}`}
             alt="Host"
           />
           <span className=" " style={{ color: theme.dark }}
