@@ -137,13 +137,19 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css";
 const TravelCompanion = ({ data }) => {
 
+  const setSampleAvatar=(gender)=>{
+    if(gender=="male"){
+      return maleAvatar
+    }
+    return femaleAvatar
+  }
   const navigate = useNavigate()
 
   return (
-    <div onClick={() => navigate(`/user/userPublicProfile/${data?.host?._id}`)} className="min-h-[90%] min-w-20 flex flex-col items-center rounded-lg shadow-xs shadow-black active:shadow-none" 
+    <div onClick={() => navigate(`/user/userPublicProfile/${data?._id}`)} className="min-h-[90%] min-w-20 flex flex-col items-center rounded-lg shadow-xs shadow-black active:shadow-none" 
 
     >
-      <img src={data?.avatar?`${data?.avatar}`:`${setSampleAvatar(data.gender)}`} className=" h-14 w-14 object-cover overflow-hidden mt-1 rounded-full bg-gray-100"></img>
+      <img src={data?.avatar?`${data?.avatar}`:`${setSampleAvatar(data?.gender)}`} className=" h-14 w-14 object-cover overflow-hidden mt-1 rounded-full bg-gray-100"></img>
       <span className="text-xs w-full text-center overflow-hidden pl-1 pr-1">{data?.name}</span>
     </div>
   )

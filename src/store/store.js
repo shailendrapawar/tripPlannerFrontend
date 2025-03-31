@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit"
 import themeReducer from "../store/slice/themeSlice.js" 
 import userReducer from "../store/slice/userSlice.js"
 import tripReducer from "../store/slice/tripSlice.js"
+import conversationReducer from "../store/slice/conversationSlice.js"
 import {persistReducer,persistStore} from "redux-persist"
 // import storage from "redux-persist/lib/storage";
 import sessionStorage from "redux-persist/lib/storage/session"
@@ -15,8 +16,10 @@ const persistConfig={
 const rootReducers=combineReducers({
     theme:themeReducer,
     user:userReducer,
-    trip:tripReducer
+    trip:tripReducer,
+    conversation:conversationReducer
 })
+
 
 //=====wrapping the persisten reducer==========
 const persistedReducer=persistReducer(persistConfig,rootReducers)

@@ -65,9 +65,9 @@ const UserPublicPorfile = () => {
 
 
   return (
-    <div className=" h-full flex flex-col items-center p-2 cursor-pointer relative" style={{backgroundColor:theme.pastel}}>
+    <div className=" h-full flex flex-col items-center p-2 cursor-pointer relative" style={{backgroundColor:"white"}}>
       
-      <div className=" shadow-lg rounded-2xl p-6 max-w-lg w-full" style={{backgroundColor:theme.light}}>
+      <div className=" shadow-lg rounded-2xl p-6 max-w-lg w-full" style={{backgroundColor:theme.pastel}}>
         {/* Profile Header */}
         <div className="flex items-center flex-col relative">
         <IoArrowBackCircleSharp className="h-10 w-10 absolute left-0 active:scale-75"
@@ -118,7 +118,7 @@ const UserPublicPorfile = () => {
 
         {userRelatedTrips.length>0?(userRelatedTrips.map((item,i)=>{
           return <TripCard data={item} key={i}/>
-        })):(<>heo</>)}
+        })):(<h1 style={{color:theme.primary}}>No trips hosted yet</h1>)}
       </section>
 
     </div>

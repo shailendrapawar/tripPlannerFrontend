@@ -24,7 +24,8 @@ import UserPublicPorfile from './pages/userPublicProfile/UserPublicPorfile.jsx'
 
 import axios from 'axios'
 import SingleTripPage from './pages/singleTripPage/SingleTripPage.jsx'
-axios.defaults.withCredentials=true
+import ChatPage from './pages/chatPage/ChatPage.jsx'
+axios.defaults.withCredentials = true
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 
@@ -34,17 +35,25 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
 
     {/* ===========user routes========================= */}
     <Route path='/user' element={<PageLayout />}>
+
+      {/* =========routes for public users=============== */}
       <Route path='/user/' element={<Home />}></Route>
       <Route path='/user/explore' element={<Explore />}></Route>
       <Route path='/user/planTrip' element={<PlanTrip />}></Route>
       <Route path='/user/userPublicProfile/:userId' element={<UserPublicPorfile />}></Route>
-      <Route path='/user/singleTripPage/:tripId' element={<SingleTripPage/>}></Route>
+      <Route path='/user/singleTripPage/:tripId' element={<SingleTripPage />}></Route>
 
 
+      {/* ==============routes fir logged in user======================= */}
       <Route path='/user/notification' element={<Notification />}></Route>
       <Route path='/user/userProfile' element={<UserProfile />}></Route>
       <Route path='/user/myTrips' element={<MyTrips />} ></Route>
       <Route path='/user/editProfile' element={<EditProfile />}></Route>
+
+
+      {/* ===============routes for chatting ===================== */}
+      <Route path='/user/chatPage' element={<ChatPage/>}></Route>
+      
     </Route>
 
   </Route>

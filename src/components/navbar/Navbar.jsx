@@ -8,6 +8,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 
 import "./navbar.css"
+import { IoIosNotifications } from "react-icons/io";
+import { MdChat } from "react-icons/md";
 
 const Navbar = () => {
     const { theme } = useSelector(state => state.theme)
@@ -25,6 +27,15 @@ const Navbar = () => {
             className="text-2xl text-white font-sans"
             >PackPals</span>
 
+            <span className="h-6 w-7 absolute right-20 ">
+            <IoIosNotifications className="h-6 w-6  right-20" style={{color:theme.pastel}} onClick={()=>{navigate("/user/notification");setVisible(false)}}/>
+                <i className="absolute top-0 right-0 text-xs ml-" style={{color:theme.pastel}}>0</i>
+            </span>
+
+            <span className="h-6 w-8 absolute right-28 ">
+            <MdChat className="h-6 w-6  right-20" style={{color:theme.pastel}} onClick={()=>{navigate("/user/chatPage");setVisible(false)}}/>
+                <i className="absolute top-0 right-0 text-xs ml-" style={{color:theme.pastel}}>0</i>
+            </span>
     
 {/* ================mobile navigation=========================== */}
             <nav className=" mobile-nav z-10">
@@ -33,8 +44,7 @@ const Navbar = () => {
                     <NavLink to={"/user/explore"} className={`w-[70%] text-center`}>EXPLORE</NavLink>
                     <NavLink to={"/user/planTrip"} className={"w-[70%] text-center"}>PLAN TRIP</NavLink>
                     <NavLink to={"/user/myTrips"} className={"w-[70%] text-center"}>My Trips</NavLink>
-                    <NavLink to={"/user/notification"} className={"w-[70%] text-center"}>NOTIFY</NavLink>
-                    <NavLink to={"/user/userProfile"} className={"w-[70%] text-center"}>USER PROFILE</NavLink>
+                    <NavLink to={"/user/userProfile"} className={"w-[70%] text-center"}>User Profile</NavLink>
                 </section>
             </nav>
 
@@ -45,7 +55,6 @@ const Navbar = () => {
                     <NavLink to={"/user/explore"} className={`w-[20%] text-center text-sm`}>EXPLORE</NavLink>
                     <NavLink to={"/user/planTrip"} className={`w-[20%] text-center text-sm`}>PLAN TRIP</NavLink>
                     <NavLink to={"/user/myTrips"} className={"w-[20%] text-center text-sm"}>My Trips</NavLink>
-                    <NavLink to={"/user/notification"} className={`w-[20%] text-center text-sm`}>NOTIFY</NavLink>
                 </section>
 
                 <FaUserCircle onClick={() => {
