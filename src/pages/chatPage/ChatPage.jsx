@@ -2,7 +2,7 @@ import { IoSearchCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux"
 import { BiSolidSend } from "react-icons/bi";
 import "./chatPage.css"
-import { setSelectedConversation } from "../../store/slice/conversationSlice";
+import { setSelectedConversation,setMessages } from "../../store/slice/conversationSlice";
 import { HiMiniUsers } from "react-icons/hi2";
 import sampleTripImg from "../../assets/images/sampleTrip-img.jpg"
 import { FaExternalLinkAlt } from "react-icons/fa";
@@ -11,15 +11,21 @@ import useConversationMessages from "../../hooks/useConversationMessages";
 import SingleMessage from "./singleMessage/SingleMessage";
 
 import selectChatImg from "../../assets/images/selectChatImg.svg"
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+
 const ChatPage = () => {
+  const navigate = useNavigate()
+  const dispatch=useDispatch()
+  useConversationMessages()
+
   const { theme } = useSelector(s => s.theme)
   const { allConversations } = useSelector(s => s.conversation)
   const { selectedConversation } = useSelector(s => s.conversation)
   const { messages } = useSelector(s => s.conversation)
 
-  const navigate = useNavigate()
-  useConversationMessages()
+  const [userMessage,setUserMessage]=useState("")
+
 
   // =====scrolling into bottom chats==============
   const bottomRef = useRef(null)
@@ -27,6 +33,25 @@ const ChatPage = () => {
     bottomRef.current.scrollIntoView({behavior:"smooth",block:"end"})
   }, [messages])
 
+
+
+  const sendMessage=async()=>{
+    console.log(userMessage)
+    if(userMessage===""){
+      return
+    }
+
+    const isMsgSent=await axios.post(import.meta.env.VITE_API_URL+`/message/sendMessage/${selectedConversation._id}`,{
+      message:userMessage
+    },{
+      withCredentials:true
+    })
+    console.log(isMsgSent.data.newMessage)
+    if(isMsgSent){
+    dispatch(setMessages([...messages,isMsgSent.data.newMessage]))
+    }
+    // console.log(isMsgSent)
+  }
 
   return (
     <div className="h-[90%]  w-full flex justify-center items-center">
@@ -76,11 +101,19 @@ const ChatPage = () => {
 
 
           <div className="h-1/8 bg-white flex items-center justify-evenly pl-1 pr-1 gap-1">
-            <input type="text" placeholder="enter message" className=" h-8 w-5/6 rounded-md text-xs pl-1 pr-1 outline-gray-500 outline-2"></input>
-            <span className="h-8 w-8 flex items-center justify-center rounded-full p-1 active:scale-95" style={{ backgroundColor: theme.dark }}>
+            <input
+            value={userMessage}
+            onChange={(e)=>setUserMessage(e.target.value)}
+            type="text" placeholder="enter message" className=" h-8 w-5/6 rounded-md text-xs pl-1 pr-1 outline-gray-500 outline-2"></input>
+
+            <span
+            onClick={()=>sendMessage()}
+            className="h-9 w-9 flex items-center justify-center rounded-full p-1.5 active:scale-95" style={{ backgroundColor: theme.dark }}>
               <BiSolidSend className="h-full w-full text-white" />
             </span>
           </div>
+
+
         </main>
 
       </section>

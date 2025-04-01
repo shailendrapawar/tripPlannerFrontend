@@ -15,6 +15,7 @@ const slice=  createSlice({
             // console.log(action.payload)
             state.selectedConversation=action.payload
         },
+        
         setMessages:(state,action)=>{
             state.messages=action.payload
         }
