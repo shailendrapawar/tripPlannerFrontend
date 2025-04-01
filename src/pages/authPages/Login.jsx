@@ -15,8 +15,8 @@ const Login = () => {
 
   // ==========form state for login=================
   const [formData, setFormData] = useState({
-    email: "",
-    password: ""
+    email: "shailu@gmail.com",
+    password: "shailu"
   })
   
   const handleChange = (e) => {

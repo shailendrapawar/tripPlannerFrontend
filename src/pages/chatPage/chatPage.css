@@ -2,11 +2,11 @@
     width: 3px; /* Width of the scrollbar */
   }
 .scroll-class::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Track color */
+    background: transparent; /* Track color */
     border-radius: 10px;
   }
   
 .scroll-class::-webkit-scrollbar-thumb {
-    background: #a2a2a2; /* Scrollbar handle */
+    background: black; /* Scrollbar handle */
     border-radius: 10px;
   }

@@ -6,20 +6,27 @@ import { setSelectedConversation } from "../../store/slice/conversationSlice";
 import { HiMiniUsers } from "react-icons/hi2";
 import sampleTripImg from "../../assets/images/sampleTrip-img.jpg"
 import { FaExternalLinkAlt } from "react-icons/fa";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import useConversationMessages from "../../hooks/useConversationMessages";
 import SingleMessage from "./singleMessage/SingleMessage";
+
+import selectChatImg from "../../assets/images/selectChatImg.svg"
+import { useEffect, useRef } from "react";
 const ChatPage = () => {
   const { theme } = useSelector(s => s.theme)
   const { allConversations } = useSelector(s => s.conversation)
   const { selectedConversation } = useSelector(s => s.conversation)
   const { messages } = useSelector(s => s.conversation)
 
-  const navigate=useNavigate()
-
+  const navigate = useNavigate()
   useConversationMessages()
 
-  console.log(messages)
+  // =====scrolling into bottom chats==============
+  const bottomRef = useRef(null)
+  useEffect(() => {
+    bottomRef.current.scrollIntoView({behavior:"smooth",block:"end"})
+  }, [messages])
+
 
   return (
     <div className="h-[90%]  w-full flex justify-center items-center">
@@ -41,22 +48,32 @@ const ChatPage = () => {
           </div>
         </aside>
 
+        <main className="w-2/3 h-full flex flex-col justify-center items-center" style={selectedConversation ? { display: "none" } : { display: "flex" }}>
+          <img src={selectChatImg}></img>
+          <h3 className="text-black text-2xl">Select Group</h3>
+        </main>
 
-        <main className="w-2/3 " style={{ backgroundColor: theme.pastel, }}>
-          <div className="h-1/8 w-full flex text-xs items-center gap-2 relative pl-2" style={selectedConversation?{ backgroundColor: theme.dark ,color:theme.pastel }:{display:"none"}}>
-            <img className="h-12 w-12 object-cover rounded-full" src={selectedConversation?.tripImg||sampleTripImg}></img>
+
+        <main className="w-2/3 " style={selectedConversation ? { backgroundColor: theme.pastel, } : { display: "none" }}>
+          <div className="h-1/8 w-full flex text-xs items-center gap-2 relative pl-2" style={selectedConversation ? { backgroundColor: theme.dark, color: theme.pastel } : { display: "none" }}>
+            <img className="h-12 w-12 object-cover rounded-full" src={selectedConversation?.tripImg || sampleTripImg}></img>
             <p className="max-w-30 h-auto">{selectedConversation?.chatName}</p>
-            <span className="flex w-10 h-5 absolute right-1 bottom-1 text-sm items-center"><HiMiniUsers className="h-4 w-5"/> : {selectedConversation.users.length}</span>
-            <FaExternalLinkAlt className="absolute top-2 right-2 h-4 w-4" onClick={()=>navigate(`/user/singleTripPage/${selectedConversation?.tripId}`)}/>
+            <span className="flex w-10 h-5 absolute right-1 bottom-1 text-sm items-center"><HiMiniUsers className="h-4 w-5" /> : {selectedConversation?.users?.length}</span>
+            <FaExternalLinkAlt className="absolute top-2 right-2 h-4 w-4" onClick={() => navigate(`/user/singleTripPage/${selectedConversation?.tripId}`)} />
           </div>
 
-          <section className="h-6/8 bg-white flex flex-col p-2 gap-3">
+
+          <section className="scroll-class overflow-y-scroll  h-6/8 bg-white flex flex-col p-2 gap-3"  >
             {
-            messages?.map((item,i)=>{
-              return <SingleMessage data={item} key={i} />
-            })
+              messages?.map((item, i) => {
+                return <SingleMessage data={item} key={i} />
+              })
+
             }
+            <div className="bg-green-300" ref={bottomRef}></div>
           </section>
+
+
 
           <div className="h-1/8 bg-white flex items-center justify-evenly pl-1 pr-1 gap-1">
             <input type="text" placeholder="enter message" className=" h-8 w-5/6 rounded-md text-xs pl-1 pr-1 outline-gray-500 outline-2"></input>
@@ -79,13 +96,13 @@ const ConvoList = ({ data }) => {
   const { selectedConversation } = useSelector(s => s.conversation)
 
   const dispatch = useDispatch();
-  const isSelected=selectedConversation._id===data._id
+  const isSelected = selectedConversation?._id === data?._id
 
 
   return (
-    <div className="w-full min-h-10  max-h-10 bg-green-400 text-xs flex items-center justify-start p-1 overflow-ellipsis"
-      style={isSelected?{backgroundColor:theme.primary}:{ backgroundColor: theme.pastel }}
-      onClick={()=>dispatch(setSelectedConversation(data))}
+    <div className="w-full min-h-10  max-h-10 bg-green-400 text-xs flex items-center justify-start p-1 overflow-ellipsis cursor-pointer"
+      style={isSelected ? { backgroundColor: theme.primary, color: "white" } : { backgroundColor: theme.pastel }}
+      onClick={() => dispatch(setSelectedConversation(data))}
     >
 
       <span className=" h-auto w-full ">{data?.chatName}</span>
