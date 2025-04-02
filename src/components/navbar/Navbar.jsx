@@ -13,6 +13,8 @@ import { MdChat } from "react-icons/md";
 
 const Navbar = () => {
     const { theme } = useSelector(state => state.theme)
+    const{allConversations}=useSelector(s=>s.conversation);
+
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate()
 
@@ -27,14 +29,14 @@ const Navbar = () => {
             className="text-2xl text-white font-sans"
             >PackPals</span>
 
-            <span className="h-6 w-7 absolute right-20 ">
+            <span className="h-6 w-7 absolute right-18 ">
             <IoIosNotifications className="h-6 w-6  right-20" style={{color:theme.pastel}} onClick={()=>{navigate("/user/notification");setVisible(false)}}/>
                 <i className="absolute top-0 right-0 text-xs ml-" style={{color:theme.pastel}}>0</i>
             </span>
 
-            <span className="h-6 w-8 absolute right-28 ">
+            <span className="h-6 w-8 absolute right-26 ">
             <MdChat className="h-6 w-6  right-20" style={{color:theme.pastel}} onClick={()=>{navigate("/user/chatPage");setVisible(false)}}/>
-                <i className="absolute top-0 right-0 text-xs ml-" style={{color:theme.pastel}}>0</i>
+                <i className="absolute top-0 right-0 text-xs " style={{color:theme.pastel}}>{allConversations?.length|| 0}</i>
             </span>
     
 {/* ================mobile navigation=========================== */}
@@ -51,6 +53,7 @@ const Navbar = () => {
 
 {/* ================web naviagteion========================= */}
             <nav className=" web-nav w-[80%] h-6 flex justify-between" style={{color:theme.pastel}}>
+                
                 <section className="w-[80%] flex  justify-evenly" >
                     <NavLink to={"/user/explore"} className={`w-[20%] text-center text-sm`}>EXPLORE</NavLink>
                     <NavLink to={"/user/planTrip"} className={`w-[20%] text-center text-sm`}>PLAN TRIP</NavLink>
@@ -60,7 +63,8 @@ const Navbar = () => {
                 <FaUserCircle onClick={() => {
                     setVisible(false)
                     navigate("/user/userProfile")
-                }} className="h-6 w-6" />
+                }} className="h-7 w-7" />
+
             </nav>
 
         </nav>

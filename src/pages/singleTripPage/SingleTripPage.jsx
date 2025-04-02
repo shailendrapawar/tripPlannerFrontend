@@ -18,6 +18,9 @@ const SingleTripPage = () => {
   const { theme } = useSelector(s => s.theme)
   const { tripId } = useParams();
 
+  const { authUser } = useSelector(s => s.user)
+
+
   const navigate = useNavigate()
   // console.log(tripId)
 
@@ -25,6 +28,10 @@ const SingleTripPage = () => {
   const [tripData, setTripData] = useState({})
   const [destination, setDestination] = useState({})
 
+
+
+  const alreadyRequested = (tripData?.requestedUsers?.find((item) => item._id === authUser._id))
+  const alreadyApporved = (tripData?.approvedUser?.find((item) => item._id === authUser._id))
 
   useEffect(() => {
     setloading(true)
@@ -36,7 +43,7 @@ const SingleTripPage = () => {
         if (res) {
           setTripData(res.data.data)
           setDestination(res.data.data.destination)
-          console.log(res.data.data)
+          // console.log(res.data.data)
         }
       } catch (err) {
         console.log(err)
@@ -48,12 +55,42 @@ const SingleTripPage = () => {
 
   }, [])
 
+
+
+  const requestForTrip = async () => {
+    try {
+      
+      if (alreadyRequested) {
+        toast.error("already requested ")
+        return
+      }
+      if(alreadyApporved){
+        toast.error("you are already approved")
+        return
+      }
+      
+      const isRequested = await axios.post(import.meta.env.VITE_API_URL + `/trip/requestForTrip/${data._id}/${authUser.name}`, {
+        withCredentials: true
+      })
+      console.log(isRequested)
+      if (isRequested) {
+        toast.success(isRequested.data.msg)
+        dispatch(updateExploreTripCard(isRequested.data.data))
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
+
   const formatDate = (isoDate) => {
     return new Date(isoDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", });
   };
 
-  const setSampleAvatar=(gender)=>{
-    if(gender=="male"){
+  const setSampleAvatar = (gender) => {
+    if (gender == "male") {
       return maleAvatar
     }
     return femaleAvatar
@@ -62,14 +99,14 @@ const SingleTripPage = () => {
   return (
     <div className="h-auto min-h-full flex flex-col items-center justify-center pb-5 relative">
 
-      {loading ? (<Loader value={true} />) : (<section className="w-9/10 max-w-120 mt-5 flex flex-col relative overflow-hidden">
+      {loading ? (<Loader value={true} />) : (<section className="w-9/10 max-w-120 mt-5  flex flex-col relative overflow-hidden">
 
-        <span className="absolute h-10 w-15 p-1 rounded-br-md flex justify-center items-center bg-white" onClick={()=>{navigate(-1)}}><IoArrowBackCircle className="w-full h-full" /></span>
+        <span className="absolute h-10 w-15 p-1 rounded-br-md flex justify-center items-center bg-white" onClick={() => { navigate(-1) }}><IoArrowBackCircle className="w-full h-full" /></span>
         <img src={sampleTripImg} className="w-full h-70 object-cover rounded-md shadow-md shadow-black">
         </img>
 
         {/* ===========host info=============== */}
-        <div className={`flex h-13 items-center justify-start gap-3 mt-4 pl-2 rounded-xs hover:shadow-xs shadow-black active:shadow-none`} style={{ backgroundColor: theme.pastel }}
+        <div className={`flex h-13 items-center justify-start gap-3 mt-4 pl-2 rounded-xs hover:shadow-xs shadow-black active:shadow-none cursor-pointer`} style={{ backgroundColor: theme.pastel }}
           onClick={() => navigate(`/user/userPublicProfile/${tripData.host._id}`)}
         >
           <img
@@ -123,7 +160,18 @@ const SingleTripPage = () => {
           </div>
         </div>
 
-        <button className="h-10 w-25 rounded-md mt-2 self-end" style={{ backgroundColor: theme.primary, color: theme.pastel }}>Request</button>
+        {/* <button className="h-10 w-25 rounded-md mt-2 self-end" style={{ backgroundColor: theme.primary, color: theme.pastel }}>Request</button> */}
+
+        {alreadyApporved ? (
+          <button className="w-25 h-full  py-2 rounded-lg text-sm transition shadow-md shadow-black active:shadow-none mt-2 mb-2 self-end" style={{ backgroundColor: theme.primary, color: theme.pastel }}>
+            Enter Group
+          </button>
+        ) : (<button className="w-25 h-full  py-2 rounded-lg transition shadow-md shadow-black active:shadow-none mt-2  mb-2 self-end" style={{ backgroundColor: theme.primary, color: theme.pastel }}
+          onClick={() => requestForTrip()}
+        >
+          {alreadyRequested ? "REQUESTED" : "REQUEST"}
+        </button>)}
+
       </section>)}
 
     </div>
@@ -137,8 +185,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css";
 const TravelCompanion = ({ data }) => {
 
-  const setSampleAvatar=(gender)=>{
-    if(gender=="male"){
+  const setSampleAvatar = (gender) => {
+    if (gender == "male") {
       return maleAvatar
     }
     return femaleAvatar
@@ -146,10 +194,10 @@ const TravelCompanion = ({ data }) => {
   const navigate = useNavigate()
 
   return (
-    <div onClick={() => navigate(`/user/userPublicProfile/${data?._id}`)} className="min-h-[90%] min-w-20 flex flex-col items-center rounded-lg shadow-xs shadow-black active:shadow-none" 
+    <div onClick={() => navigate(`/user/userPublicProfile/${data?._id}`)} className="min-h-[90%] min-w-20 flex flex-col items-center rounded-lg shadow-xs shadow-black active:shadow-none"
 
     >
-      <img src={data?.avatar?`${data?.avatar}`:`${setSampleAvatar(data?.gender)}`} className=" h-14 w-14 object-cover overflow-hidden mt-1 rounded-full bg-gray-100"></img>
+      <img src={data?.avatar ? `${data?.avatar}` : `${setSampleAvatar(data?.gender)}`} className=" h-14 w-14 object-cover overflow-hidden mt-1 rounded-full bg-gray-100"></img>
       <span className="text-xs w-full text-center overflow-hidden pl-1 pr-1">{data?.name}</span>
     </div>
   )

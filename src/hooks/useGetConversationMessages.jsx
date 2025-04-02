@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setMessages } from "../store/slice/conversationSlice"
 import axios from "axios"
 import { useEffect } from "react"
-const useConversationMessages = () => {
+const useGetConversationMessages = () => {
 
     const { selectedConversation } = useSelector(s => s.conversation)
     const dispatch =useDispatch()
@@ -18,7 +18,7 @@ const useConversationMessages = () => {
                     withCredentials:true
                })
                if (res) {
-                   console.log(res.data.conversation)
+                //    console.log(res.data.conversation)
                    dispatch(setMessages(res.data.conversation))
                }
 
@@ -31,4 +31,4 @@ const useConversationMessages = () => {
     }, [selectedConversation])
 
 }
-export default useConversationMessages
+export default useGetConversationMessages
