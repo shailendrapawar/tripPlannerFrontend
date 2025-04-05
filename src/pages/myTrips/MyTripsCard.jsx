@@ -24,30 +24,10 @@ const MyTripsCard = ({ data }) => {
     return new Date(isoDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   };
 
-  const tempdqta = [
-    {
-      name: "shailu",
-      avatar: "",
-    },
-    {
-      name: "kanak",
-      avatar: "",
-    },
-    {
-      name: "sharad",
-      avatar: "",
-    },
-    {
-      name: "yogi",
-      avatar: "",
-    }
-
-  ]
-
   return (
     <div className="myTrip-card-body w-[95%] max-w-150 h-90  rounded-md overflow-hidden relative shadow-lg shadow-black" style={{ backgroundColor: theme.pastel, }}>
       <div className="h-full" style={showStats ? { display: "none" } : { display: "block" }}>
-        <img src={imgSrc} className="myTrip-card-img h-[50%] w-full bg-slate-200 object-cover"></img>
+        <img src={data?.tripImg?.url||imgSrc} className="myTrip-card-img h-[50%] w-full bg-slate-200 object-cover"></img>
 
         <section className="pl-3 pr-3 h-[50%] relative flex items-center flex-col gap-1 justify-evenly">
           <span className="w-15 items-center justify-between flex absolute top-2 right-2 text-sm">{data.status ? "Active:" : "Close"} <FaCircle className={data.status ? "text-green-500" : "text-red-500"} /></span>

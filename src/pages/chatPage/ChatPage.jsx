@@ -26,6 +26,7 @@ const ChatPage = () => {
   const { theme } = useSelector(s => s.theme)
   const { allConversations } = useSelector(s => s.conversation)
   const { selectedConversation } = useSelector(s => s.conversation)
+  console.log(selectedConversation)
   const{prevConversation}=useSelector(s=>s.conversation)
   const { messages } = useSelector(s => s.conversation)
   const{socket}=useSelector(s=>s.socket);
@@ -70,9 +71,7 @@ const ChatPage = () => {
     }
     if(prevConversation?._id){
       socket?.emit("leaveRoom",prevConversation?._id)
-
     }
-
     socket?.emit("joinRoom",selectedConversation?._id)
   
   },[selectedConversation,prevConversation,socket])
@@ -92,9 +91,10 @@ const ChatPage = () => {
    
   },[socket])
 
+
   return (
     <div className="h-[90%]  w-full flex justify-center items-center">
-      <section className="h-130 w-full max-w-170 flex bg-white p-1" style={{ border: `1px solid ${theme.primary}` }}>
+      <section className="h-130 w-full max-w-170 flex bg-white " style={{ border: `2px solid ${theme.dark}` }}>
         <aside className="w-1/3  pl-1 pr-1" style={{ backgroundColor: theme.dark, border: `1px solid ${theme.dark}` }}>
           <div className="h-16 flex justify-center items-center relative">
 
@@ -123,7 +123,7 @@ const ChatPage = () => {
 
         <main className="w-2/3 " style={selectedConversation ? { backgroundColor: theme.pastel, } : { display: "none" }}>
           <div className="h-1/8 w-full flex text-xs items-center gap-2 relative pl-2" style={selectedConversation ? { backgroundColor: theme.dark, color: theme.pastel } : { display: "none" }}>
-            <img className="h-12 w-12 object-cover rounded-full" src={selectedConversation?.tripImg || sampleTripImg}></img>
+            <img className="h-12 w-12 object-cover rounded-full" src={selectedConversation?.tripImg}></img>
             <p className="max-w-30 h-auto">{selectedConversation?.chatName}</p>
             <span className="flex w-10 h-5 absolute right-1 bottom-1 text-sm items-center"><HiMiniUsers className="h-4 w-5" /> : {selectedConversation?.users?.length}</span>
             <FaExternalLinkAlt className=" h-3 w-3" onClick={() => navigate(`/user/singleTripPage/${selectedConversation?.tripId}`)} />

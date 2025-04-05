@@ -18,25 +18,27 @@ const PlanTrip = () => {
 
   const[loading,setLoading]=useState(false)
 
-  const [tripImg, setTripImg] = useState("")
+  const [tripImg, setTripImg] = useState(null)
   const [tripImgUrl, setImgUrl] = useState(imgSrc)
+
   const tripImgRef = useRef();
+
   const [tripForm, setTripForm] = useState({
     title: "",
     category: "",
     startDate: "",
     endDate: "",
     description: "",
-    budget: ""
-
+    budget: "",
   })
+
   const [destination, setDestination] = useState({
     destination: "",
     latitude: "",
     longitutde: ""
   })
-  const [activities, setActivities] = useState([]);
 
+  const [activities, setActivities] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -66,25 +68,27 @@ const PlanTrip = () => {
     }
 
     setLoading(true)
-    const reqData = {
-      title: tripForm.title,
-      description: tripForm.description,
-      tripImg:tripImg,
 
-      startDate: tripForm.startDate,
-      endDate: tripForm.endDate,
+    const formData=new FormData();
+    formData.append("title",tripForm.title)
+    formData.append("description", tripForm.description)
 
-      destination: destination,
-      budget: tripForm.budget,
-      activities: activities,
-      category: tripForm.category
-    }
+    formData.append("tripImg",tripImg)
+
+    formData.append("startDate",tripForm.startDate)
+    formData.append("endDate",tripForm.endDate)
+
+    formData.append("destination",JSON.stringify(destination))
+    formData.append("budget",tripForm.budget)
+    formData.append("activities",JSON.stringify(activities))
+    formData.append("category",tripForm.category)
 
     try {
+
       axios.defaults.withCredentials = true
-      const isCreated = await axios.post(import.meta.env.VITE_API_URL + "/trip/createTrip", reqData, {
+      const isCreated = await axios.post(import.meta.env.VITE_API_URL + "/trip/createTrip", formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
 
         }, withCredentials: true
       })
@@ -95,7 +99,8 @@ const PlanTrip = () => {
           navigate("/user/userProfile")
         }, 1000);
       }
-    } catch (err) {
+
+    } catch (err){
       console.log(err)
     }finally{
       setLoading(false)
@@ -108,7 +113,6 @@ const PlanTrip = () => {
       <section className="w-[90%] h-[90%] flex-col flex gap-2">
 
         <SearchBar destination={destination} setDestination={setDestination} />
-
 
         <div className="h-auto flex flex-col justify-center items-center gap-2">
 

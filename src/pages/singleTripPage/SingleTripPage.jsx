@@ -102,7 +102,7 @@ const SingleTripPage = () => {
       {loading ? (<Loader value={true} />) : (<section className="w-9/10 max-w-120 mt-5  flex flex-col relative overflow-hidden">
 
         <span className="absolute h-10 w-15 p-1 rounded-br-md flex justify-center items-center bg-white" onClick={() => { navigate(-1) }}><IoArrowBackCircle className="w-full h-full" /></span>
-        <img src={sampleTripImg} className="w-full h-70 object-cover rounded-md shadow-md shadow-black">
+        <img src={tripData?.tripImg?.url} className="w-full h-70 object-cover rounded-md shadow-md shadow-black">
         </img>
 
         {/* ===========host info=============== */}

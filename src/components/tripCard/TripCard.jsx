@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
 import sampleImgSrc from "../../assets/images/sampleTrip-img.jpg"
-import smapleAvatarSrc from "../../assets/images/user-avatar.png"
 
 import maleAvatar from "../../assets/images/male-avatar.png"
 import femaleAvatar from "../../assets/images/female-avatar.png"
@@ -71,7 +70,7 @@ const TripCard = ({ data }) => {
       {/* Trip Image */}
       <img
         className="w-full h-48 object-cover"
-        src={data.tripImg ? `${data.tripImg}` : `${sampleImgSrc}`}
+        src={data.tripImg ? `${data.tripImg.url}` : `${sampleImgSrc}`}
         alt="Trip Destination"
       />
 

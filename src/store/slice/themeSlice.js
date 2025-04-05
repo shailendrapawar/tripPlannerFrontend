@@ -21,8 +21,11 @@ const slice=createSlice({
             // light:"#b4cded",
             // pastel:"#f0f4ef"
 
-
-
+            // , chatgpt, fun theme===
+            // dark:"#2E3A59",
+            // primary:"#00B2FF",
+            // light:"#FFD93D",
+            // pastel:"#6FFFE9"
         }
     },
     reducers:{
