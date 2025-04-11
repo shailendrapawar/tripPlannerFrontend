@@ -42,9 +42,11 @@ const PageLayout = () => {
   },[])
   
   return (
-    <div className="h-full ">
+    <div className="h-full relative">
       <Navbar/>
         <Outlet/>
+
+        {/* <div className="absoli right-10 bottom-10">POST</div> */}
     </div>
   )
 }

@@ -14,6 +14,7 @@ import { MdChat } from "react-icons/md";
 const Navbar = () => {
     const { theme } = useSelector(state => state.theme)
     const{allConversations}=useSelector(s=>s.conversation);
+    const{authUser}=useSelector(s=>s.user);
 
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate()
@@ -31,7 +32,7 @@ const Navbar = () => {
 
             <span className="h-6 w-7 absolute right-18 ">
             <IoIosNotifications className="h-6 w-6  right-20" style={{color:theme.pastel}} onClick={()=>{navigate("/user/notification");setVisible(false)}}/>
-                <i className="absolute top-0 right-0 text-xs ml-" style={{color:theme.pastel}}>0</i>
+                <i className="absolute top-0 right-0 text-xs ml-" style={{color:theme.pastel}}>{authUser?.notifications?.length}</i>
             </span>
 
             <span className="h-6 w-8 absolute right-26 ">

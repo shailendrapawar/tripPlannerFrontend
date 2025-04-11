@@ -26,7 +26,7 @@ const ChatPage = () => {
   const { theme } = useSelector(s => s.theme)
   const { allConversations } = useSelector(s => s.conversation)
   const { selectedConversation } = useSelector(s => s.conversation)
-  console.log(selectedConversation)
+  // console.log(selectedConversation)
   const{prevConversation}=useSelector(s=>s.conversation)
   const { messages } = useSelector(s => s.conversation)
   const{socket}=useSelector(s=>s.socket);
