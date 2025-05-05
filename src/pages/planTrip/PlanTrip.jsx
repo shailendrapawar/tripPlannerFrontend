@@ -1,4 +1,3 @@
-import "./planTrip.css"
 import { useSelector } from "react-redux"
 import SearchBar from "../../components/searchBar/SearchBar"
 import Todos from "../../components/todo/Todos"
@@ -7,21 +6,16 @@ import toast from "react-hot-toast"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import imgSrc from "../../assets/images/upload-img.jpg"
-
-import { BiSolidImageAdd } from "react-icons/bi";
+import { BiSolidImageAdd } from "react-icons/bi"
 import MiniLoader from "../../components/miniLoader/MiniLoader"
-
 
 const PlanTrip = () => {
   const { theme } = useSelector(state => state.theme)
   const navigate = useNavigate()
-
-  const[loading,setLoading]=useState(false)
-
+  const [loading, setLoading] = useState(false)
   const [tripImg, setTripImg] = useState(null)
   const [tripImgUrl, setImgUrl] = useState(imgSrc)
-
-  const tripImgRef = useRef();
+  const tripImgRef = useRef()
 
   const [tripForm, setTripForm] = useState({
     title: "",
@@ -38,128 +32,184 @@ const PlanTrip = () => {
     longitutde: ""
   })
 
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target
-
-    setTripForm((prev) => ({
+    setTripForm(prev => ({
       ...prev,
       [name]: value
     }))
   }
 
   const handleCreateTrip = async () => {
-    if(loading){
-      return;
-    }
-    if (tripForm.title === "" || tripForm.budget === "" || tripForm.category === "" || tripForm.description === "" || tripForm.endDate === "" || tripForm.startDate === "") {
-      toast.error("enter all field in mid-form");
+    if(loading) return
+    
+    if (tripForm.title === "" || tripForm.budget === "" || tripForm.category === "" || 
+        tripForm.description === "" || tripForm.endDate === "" || tripForm.startDate === "") {
+      toast.error("Enter all fields in the form")
       return
     }
     if (destination.destination === "") {
-      toast.error("select destination");
+      toast.error("Select destination")
       return 
     }
-
-    if(tripImg==""){
-      toast.error("choose cover photo");
+    if(!tripImg){
+      toast.error("Choose cover photo")
       return 
     }
 
     setLoading(true)
 
-    const formData=new FormData();
-    formData.append("title",tripForm.title)
+    const formData = new FormData()
+    formData.append("title", tripForm.title)
     formData.append("description", tripForm.description)
-
-    formData.append("tripImg",tripImg)
-
-    formData.append("startDate",tripForm.startDate)
-    formData.append("endDate",tripForm.endDate)
-
-    formData.append("destination",JSON.stringify(destination))
-    formData.append("budget",tripForm.budget)
-    formData.append("activities",JSON.stringify(activities))
-    formData.append("category",tripForm.category)
+    formData.append("tripImg", tripImg)
+    formData.append("startDate", tripForm.startDate)
+    formData.append("endDate", tripForm.endDate)
+    formData.append("destination", JSON.stringify(destination))
+    formData.append("budget", tripForm.budget)
+    formData.append("activities", JSON.stringify(activities))
+    formData.append("category", tripForm.category)
 
     try {
-
       axios.defaults.withCredentials = true
-      const isCreated = await axios.post(import.meta.env.VITE_API_URL + "/trip/createTrip", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-
-        }, withCredentials: true
-      })
-      // console.log(isCreated)
+      const isCreated = await axios.post(
+        import.meta.env.VITE_API_URL + "/trip/createTrip", 
+        formData, 
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true
+        }
+      )
+      
       if (isCreated) {
         toast.success(isCreated.data.msg + ` for ${destination.destination}`)
-        setTimeout(() => {
-          navigate("/user/userProfile")
-        }, 1000);
+        setTimeout(() => navigate("/user/userProfile"), 1000)
       }
-
-    } catch (err){
+    } catch(err) {
       console.log(err)
-    }finally{
+    } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className=" min-h-[90%] h-auto pb-5 pt-5 flex justify-center items-center" style={{ backgroundColor: theme.pastel }}>
-
-      <section className="w-[90%] h-[90%] flex-col flex gap-2">
-
+    <div 
+      className="min-h-[90vh] py-5 flex justify-center items-start" 
+      style={{ backgroundColor: theme.pastel }}
+    >
+      <section className="w-full max-w-md px-4 flex flex-col gap-4">
         <SearchBar destination={destination} setDestination={setDestination} />
 
-        <div className="h-auto flex flex-col justify-center items-center gap-2">
-
-          <div className=" h-50 w-[320px] relative rounded-xl overflow-hidden shadow-md active:shadow-xs shadow-black" onClick={() => tripImgRef?.current?.click()}>
-            <img src={tripImgUrl} alt="trip pic" className="w-full h-full object-cover " ></img>
-            <input type="file" className="w-full hidden " ref={tripImgRef} onChange={(e) => {
-              setTripImg(e.target.files[0])
-              const url = URL.createObjectURL(e.target.files[0])
-              setImgUrl(url)
-            }}></input>
+        <div className="flex flex-col items-center gap-3 w-full">
+          {/* Image Upload */}
+          <div 
+            className="relative w-full h-48 rounded-xl overflow-hidden shadow-md cursor-pointer active:shadow-sm"
+            onClick={() => tripImgRef?.current?.click()}
+          >
+            <img 
+              src={tripImgUrl} 
+              alt="Trip cover" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+              <BiSolidImageAdd className="text-white text-3xl" />
+            </div>
+            <input 
+              type="file" 
+              className="hidden" 
+              ref={tripImgRef} 
+              onChange={(e) => {
+                setTripImg(e.target.files[0])
+                setImgUrl(URL.createObjectURL(e.target.files[0]))
+              }}
+            />
           </div>
 
-          <input value={tripForm.title} onChange={(e) => handleChange(e)} name="title" placeholder="enter trip title" className="w-[320px] h-10 text-center bg-white outline-none border-2 rounded-md border-slate-500"></input>
+          {/* Trip Title */}
+          <input
+            value={tripForm.title}
+            onChange={handleChange}
+            name="title"
+            placeholder="Enter trip title"
+            className="w-full h-10 px-3 text-center bg-white rounded-md border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
 
-          <div className="w-[320px] flex gap-1 h-6">
-            <select value={tripForm.category} onChange={(e) => handleChange(e)} name="category" className="w-[50%] bg-white outline-none text-xs border-1  border-slate-500">
-            <option value={""}>select category</option>
-              <option value={"adventure"}>Adventure</option>
-              <option value={"heritage"}>Heritage</option>
-              <option value={"relaxation"}>Relaxation</option>
-              <option value={"nature"}>Nature</option>
-              <option value={"backpack"}>Backpack</option>
-              <option value={"family"}>Family</option>
+          {/* Category and Budget */}
+          <div className="w-full flex gap-2">
+            <select
+              value={tripForm.category}
+              onChange={handleChange}
+              name="category"
+              className="flex-1 h-9 px-2 bg-white rounded border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            >
+              <option value="">Select category</option>
+              <option value="adventure">Adventure</option>
+              <option value="heritage">Heritage</option>
+              <option value="relaxation">Relaxation</option>
+              <option value="nature">Nature</option>
+              <option value="backpack">Backpack</option>
+              <option value="family">Family</option>
             </select>
 
-            <input value={tripForm.budget} onChange={(e) => handleChange(e)} name="budget" type="number" placeholder="enter budget" className="w-[50%] bg-white text-xs text-center outline-none border-1 border-slate-500" ></input>
+            <input
+              value={tripForm.budget}
+              onChange={handleChange}
+              name="budget"
+              type="number"
+              placeholder="Enter budget"
+              className="flex-1 h-9 px-2 bg-white rounded border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm text-center"
+            />
           </div>
 
-          <div className="w-[320px] flex justify-between h-8 relative">
-            <i className=" absolute text-[8px] top-1 left-1">Start date</i>
-            <input value={tripForm.startDate} onChange={(e) => handleChange(e)} name="startDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14  select-none cursor-pointer border-1 border-slate-500"></input>
-            <input value={tripForm.endDate} onChange={(e) => handleChange(e)} name="endDate" type="date" placeholder="enter start date" className="w-[47%] bg-white outline-none text-xs pl-14 select-none cursor-pointer border-1 border-slate-500"></input>
-            <i className=" absolute text-[8px] top-1 right-29">End date</i>
+          {/* Dates */}
+          <div className="w-full flex gap-2 relative">
+            <div className="flex-1 relative">
+              <span className="absolute -top-2 left-2 px-1 text-xs bg-white text-gray-600">Start date</span>
+              <input
+                value={tripForm.startDate}
+                onChange={handleChange}
+                name="startDate"
+                type="date"
+                className="w-full h-9 px-2 pl-10 bg-white rounded border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm cursor-pointer"
+              />
+            </div>
+            <div className="flex-1 relative">
+              <span className="absolute -top-2 left-2 px-1 text-xs bg-white text-gray-600">End date</span>
+              <input
+                value={tripForm.endDate}
+                onChange={handleChange}
+                name="endDate"
+                type="date"
+                className="w-full h-9 px-2 pl-10 bg-white rounded border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm cursor-pointer"
+              />
+            </div>
           </div>
 
-          <textarea value={tripForm.description} onChange={(e) => handleChange(e)} name="description" className=" tripDesc-body w-[320px] h-20 resize-none text-xs p-1 outline-none bg-white border-2 rounded-md border-slate-500" placeholder="enter little description of trip"></textarea>
-
+          {/* Description */}
+          <textarea
+            value={tripForm.description}
+            onChange={handleChange}
+            name="description"
+            placeholder="Enter trip description"
+            className="w-full h-20 p-2 text-sm bg-white rounded-md border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
+          />
 
           <Todos activities={activities} setActivities={setActivities} />
 
-          <button onClick={() => handleCreateTrip()} className="w-30 rounded-md h-10" style={{ backgroundColor: theme.primary, color: theme.pastel }}>{loading?"Creating...":"Create"}</button>
-
+          <button
+            onClick={handleCreateTrip}
+            className={`w-32 h-10 rounded-md font-medium transition-opacity ${loading ? "opacity-80" : "hover:opacity-90"}`}
+            style={{ backgroundColor: theme.primary, color: theme.pastel }}
+            disabled={loading}
+          >
+            {loading ? <MiniLoader size={16} color={theme.pastel} /> : "Create Trip"}
+          </button>
         </div>
-
       </section>
-
     </div>
   )
 }
+
 export default PlanTrip
