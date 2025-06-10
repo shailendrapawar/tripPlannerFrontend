@@ -54,6 +54,7 @@ const SearchBar = ({destination,setDestination}) => {
                 <input type="text" placeholder="search for place" value={query} onChange={(e) => handleChange(e)} className="h-10 w-70 bg-white pl-2 pr-2 rounded-md outline-none text-sm"></input>
                 
                 <MdClear onClick={()=>{
+                    
                     setQuery("");
                     setSuggestion([]);
                     setDestination({

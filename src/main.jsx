@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from "react-router-dom"
 import Layout from './Layout.jsx'
 import Login from './pages/authPages/Login.jsx'
 import Register from './pages/authPages/Register.jsx'
@@ -37,7 +37,7 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
     <Route path='/user' element={<PageLayout />}>
 
       {/* =========routes for public users=============== */}
-      <Route path='/user/' element={<Home />}></Route>
+      <Route path='/user/' element={<Navigate to={"/user/explore"} />}></Route>
       <Route path='/user/explore' element={<Explore />}></Route>
       <Route path='/user/planTrip' element={<PlanTrip />}></Route>
       <Route path='/user/userPublicProfile/:userId' element={<UserPublicPorfile />}></Route>
@@ -52,8 +52,8 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
 
 
       {/* ===============routes for chatting ===================== */}
-      <Route path='/user/chatPage' element={<ChatPage/>}></Route>
-      
+      <Route path='/user/chatPage' element={<ChatPage />}></Route>
+
     </Route>
 
   </Route>

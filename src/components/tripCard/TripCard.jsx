@@ -9,6 +9,8 @@ import { updateExploreTripCard } from "../../store/slice/tripSlice"
 import { FaExternalLinkAlt, FaUserCheck, FaClock } from "react-icons/fa"
 
 const TripCard = ({ data }) => {
+
+  console.log(data)
   const { theme } = useSelector(s => s.theme)
   const { authUser } = useSelector(s => s.user)
   const dispatch = useDispatch()
@@ -18,12 +20,13 @@ const TripCard = ({ data }) => {
   const alreadyApproved = data?.approvedUser.includes(authUser?._id)
 
   const formatDate = (isoDate) => {
-    return new Date(isoDate).toLocaleDateString("en-GB", { 
-      day: "numeric", 
-      month: "short", 
-      year: "numeric" 
+    return new Date(isoDate).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
     })
   }
+
 
   const requestForTrip = async () => {
     try {
@@ -35,12 +38,12 @@ const TripCard = ({ data }) => {
         toast.error("You're already approved for this trip")
         return
       }
-      
+
       const isRequested = await axios.post(
         import.meta.env.VITE_API_URL + `/trip/requestForTrip/${data._id}/${authUser.name}`,
         { withCredentials: true }
       )
-      
+
       if (isRequested) {
         toast.success(isRequested.data.msg)
         dispatch(updateExploreTripCard(isRequested.data.data))
@@ -56,11 +59,11 @@ const TripCard = ({ data }) => {
   }
 
   return (
-    <div className="w-full max-w-[400px] min-w-[280px] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white cursor-pointer border border-gray-100">
+    <div className="w-full max-w-[600px] min-w-[280px] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white cursor-pointer border border-gray-100">
       {/* Trip Image with Overlay */}
       <div className="relative">
         <img
-          className="w-full h-48 object-cover"
+          className="w-full h-50 object-cover"
           src={data.tripImg ? `${data.tripImg.url}` : `${sampleImgSrc}`}
           alt="Trip Destination"
         />
@@ -70,7 +73,15 @@ const TripCard = ({ data }) => {
           <span className="bg-white/90 px-2 py-1 rounded-md text-sm font-semibold" style={{ color: theme.dark }}>
             ₹{data.budget}
           </span>
+
         </div>
+
+        <span className="bg-white/90 absolute w-12 h-5 top-2 right-2 px-2 py-1 flex items-center justify-center rounded-md text-sm font-semibold" style={{ color: theme.dark }}>
+          {data?.status}
+        </span>
+
+        
+
       </div>
 
       {/* Trip Details */}
@@ -83,7 +94,7 @@ const TripCard = ({ data }) => {
               {formatDate(data.duration.start)} - {formatDate(data.duration.end)}
             </span>
           </div>
-          
+
           {alreadyApproved && (
             <span className="flex items-center text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
               <FaUserCheck className="mr-1" /> Approved
@@ -97,8 +108,8 @@ const TripCard = ({ data }) => {
         </p>
 
         {/* Host Info */}
-        <div 
-          className={`flex items-center gap-3 p-2 rounded-lg transition hover:bg-opacity-80 mb-4`} 
+        <div
+          className={`flex items-center gap-3 p-2 rounded-lg transition hover:bg-opacity-80 mb-4`}
           style={{ backgroundColor: theme.pastel }}
           onClick={() => navigate(`/user/userPublicProfile/${data.host._id}`)}
         >
@@ -119,31 +130,34 @@ const TripCard = ({ data }) => {
 
         {/* Action Buttons */}
         <div className="flex justify-between items-center">
-          <button 
+          <button
             className="p-2 rounded-full hover:bg-gray-100 transition"
             onClick={() => navigate(`/user/singleTripPage/${data._id}`)}
             aria-label="View trip details"
           >
             <FaExternalLinkAlt style={{ color: theme.primary }} />
           </button>
-          
+
           {alreadyApproved ? (
-            <button 
+            <button
               className="flex-1 ml-4 py-2 px-4 rounded-lg text-sm font-medium transition hover:opacity-90 active:scale-95"
-              style={{ 
-                backgroundColor: theme.primary, 
+              style={{
+                backgroundColor: theme.primary,
                 color: theme.pastel,
                 boxShadow: `0 2px 4px ${theme.primary}40`
               }}
-              onClick={() => navigate(`/user/singleTripPage/${data._id}`)}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/user/chatPage")
+              }}
             >
               Enter Group
             </button>
           ) : (
-            <button 
+            <button
               className="flex-1 ml-4 py-2 px-4 rounded-lg text-sm font-medium transition hover:opacity-90 active:scale-95"
-              style={{ 
-                backgroundColor: alreadyRequested ? '#6b7280' : theme.primary, 
+              style={{
+                backgroundColor: alreadyRequested ? '#6b7280' : theme.primary,
                 color: theme.pastel,
                 boxShadow: alreadyRequested ? 'none' : `0 2px 4px ${theme.primary}40`
               }}
